@@ -1,0 +1,20 @@
+php_flag short_open_tag On
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+   # RewriteCond %{REQUEST_METHOD} ^GET$
+   # RewriteCond %{REQUEST_FILENAME} !-f
+   # RewriteCond %{REQUEST_FILENAME} !-d
+    #RewriteCond %{REQUEST_FILENAME} !.jpg$
+
+    #RewriteCond %{REQUEST_METHOD} GET
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule (.*)$ $1 [L]
+
+    RewriteRule (accounts|sessions)/(.+)$ index.php?controller=$1&id=$2 [QSA,L]
+    RewriteRule (accounts|sessions)/$ index.php?controller=$1&id=$2 [QSA,L]
+    RewriteRule (.+)/(.+)$ index.php?controller=index&id=$1/$2 [QSA,L]
+    RewriteRule (.+)/$ index.php?controller=index&id=$1/ [QSA,L]
+    RewriteRule (.+)$ index.php?controller=index&id=$1 [QSA,L]
+    RewriteRule $ index.php?controller=index&id= [QSA,L]
+</IfModule>

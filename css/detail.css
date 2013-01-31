@@ -1,0 +1,39 @@
+#main {
+	width:700px;
+	margin-bottom:10px; /*上下の間隔をあける*/
+	float:left;
+	text-align:left;
+}
+#sub {
+	width:150px;
+	margin-bottom:10px; /*上下の間隔をあける*/
+	text-align:center;
+	float:left;
+}
+#text {
+	text-align:left;
+}
+#image {
+	text-align:center;
+}
+#twitter {
+	text-align:left;
+}
+form label {
+	display: block;
+	width: 100px;
+	float: left;
+	margin-bottom: 10px;
+	text-align: left;
+	padding-right: 15px;
+}
+
+textarea {
+	width:100%;
+	height:300px;
+}
+
+.image {
+        width:100%;
+        text-align:center;
+}

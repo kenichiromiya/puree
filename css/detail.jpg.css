@@ -1,0 +1,26 @@
+#main {
+	width:850px;
+	margin-bottom:10px; /*上下の間隔をあける*/
+	text-align:left;
+	float:left;
+}
+#sub {
+	width:150px;
+	margin-bottom:10px; /*上下の間隔をあける*/
+	text-align:center;
+	float:left;
+}
+
+form label {
+        display: block;
+        width: 100px;
+        float: left;
+        margin-bottom: 10px;
+        text-align: left;
+        padding-right: 15px;
+}
+
+textarea {
+        width:100%;
+        height:50px;
+}
