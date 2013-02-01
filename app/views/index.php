@@ -104,23 +104,22 @@ if (!file_exists("upload/thumb/".$row['filename'])){
 
 ?>
 <a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['filename']?>" ></a>
-<?php elseif(preg_match("#/$#",$row['id'])) :?>
+<?php else :?>
 <?php 
 $images = array_diff( scandir("upload/thumb/".$row['id']), array(".", "..") );
 $images = array_filter($images,"image");
 $image = array_pop($images);
 if ($image){
 ?>
-<a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['id']?><?=$image?>"></a>
+<a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['id']?>/<?=$image?>"></a>
 <?php
 } else {
 ?>
-<a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/folder_org_t256.png" ></a>
+<!--a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/folder_org_t256.png" --></a>
+<a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/docu_txt.png" ></a>
 <?php
 }
 ?>
-<?php else: ?>
-<a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/docu_txt.png" ></a>
 <?php endif; ?>
 <?php if($editable): ?>
 <!--
