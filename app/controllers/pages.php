@@ -1,6 +1,6 @@
 <?php
 
-class IndexController extends CommonController
+class PagesController extends CommonController
 {
 	public function __construct() {
 		parent::__construct();

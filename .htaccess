@@ -13,8 +13,8 @@ php_flag short_open_tag On
 
     RewriteRule (accounts|sessions)/(.+)$ index.php?controller=$1&id=$2 [QSA,L]
     RewriteRule (accounts|sessions)/$ index.php?controller=$1&id=$2 [QSA,L]
-    RewriteRule (.+)/(.+)$ index.php?controller=index&id=$1/$2 [QSA,L]
-    RewriteRule (.+)/$ index.php?controller=index&id=$1/ [QSA,L]
-    RewriteRule (.+)$ index.php?controller=index&id=$1 [QSA,L]
-    RewriteRule $ index.php?controller=index&id= [QSA,L]
+    RewriteRule (.+)/(.+)$ index.php?id=$1/$2 [QSA,L]
+    RewriteRule (.+)/$ index.php?id=$1/ [QSA,L]
+    RewriteRule (.+)$ index.php?id=$1 [QSA,L]
+    RewriteRule $ index.php?id= [QSA,L]
 </IfModule>

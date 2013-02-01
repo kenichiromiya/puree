@@ -1,5 +1,5 @@
 <?php
-class IndexModel extends Model {
+class PagesModel extends Model {
 	public $error;
 
 	public function __construct(){

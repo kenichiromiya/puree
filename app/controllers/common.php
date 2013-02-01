@@ -22,7 +22,7 @@ class CommonController extends Controller
 			$view = "";
 		}
 		if ($this->req['view'] == "add") {
-			$this->var['form'] = "";
+			$this->var['form'] = array();
 			$this->var['form']['_method'] = "post";
 		}
 		if ($this->req['view'] == "edit") {
@@ -41,8 +41,10 @@ class CommonController extends Controller
 		$page = isset($this->req['page']) ? $this->req['page'] : 1;
 		$this->var['next'] = $page+1;
 		$file = "index".$view.'.php';
-		if($this->req['controller'] != 'index'){
+		if($this->req['controller']){
 			$file = $this->req['controller']."/".$file;
+		} else {
+			$file = $file;
 		}
                 $this->view = new View($file);
                 $contents = $this->view->getcontents($this->var);
