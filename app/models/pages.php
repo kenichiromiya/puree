@@ -80,7 +80,7 @@ WHERE t1.name = ‘Home’;
 			if ($req['id']) {
 				array_push($values,$req['id']);
 			} else {
-				array_push($values,'index');
+				array_push($values,'');
 			}
 			if ($row = $this->dbh->getRow($sql,$values)) {
 				//$var = $var + $row;
@@ -103,8 +103,9 @@ WHERE t1.name = ‘Home’;
 			if ($req['id']) {
 				array_push($values,$req['id'],"^".$req['id']."/[^/]+/?$");
 			} else {
-				array_push($values,'index',"^[^/]+/[^/]+/?$");
+				array_push($values,'',"^.*$");
 			}
+			//array_push($values,$req['id'],"^".($req['id'] ? $req['id']."/" : "")."[^/]+/?$");
 			$var['rows'] = $this->dbh->getAll($sql,$values);
 			$var['count'] = $this->dbh->rowCount();
 		}
@@ -113,7 +114,7 @@ WHERE t1.name = ‘Home’;
 
         public function put($req){
 		// TODO $req['post']['ids']
-		$id = ($req['id']) ? $req['id'] : 'index';
+		$id = ($req['id']) ? $req['id'] : '';
                 $values = array();
                 $sql = "SELECT COUNT(*) FROM {$this->table} WHERE id = ?";
                 array_push($values,$id);
@@ -150,7 +151,7 @@ WHERE t1.name = ‘Home’;
 				if (!is_dir($dirname)){
 					mkdir($dirname,0777,true);
 				}
-				$filename = $req['id']."/".$file["name"];
+				$filename = $req['id'].($req['id'] ? "/":"").$file["name"];
 				$upload_file = "$dirname/$filename";
 				if (!is_dir(dirname($upload_file))){
 					mkdir(dirname($upload_file),0777,true);
@@ -169,7 +170,8 @@ WHERE t1.name = ‘Home’;
 				$image->resize("upload/large/".$filename,$upload_file,600,900);
 				//$id = $req['id'].$file["name"];
 				$pathinfo = pathinfo($file["name"]);
-				$id = $req['id']."/".$pathinfo['filename'];
+				$id = $req['id'].($req['id'] ? "/":"").$pathinfo['filename'];
+				//$id = implode("/", array($req['id'],$pathinfo['filename']));
 				$parent_id = $req['id'];
 				$type = 'image';
 				//$sql = "DELETE FROM {$this->table} WHERE id = ?";
@@ -183,7 +185,8 @@ WHERE t1.name = ‘Home’;
 			}
 		} else {
 			$param = $req['post'];
-			$id = $req['id']."/".date('YmdHi');
+			//$id = $req['id']."/".date('YmdHi');
+			$id = $req['id'].($req['id'] ? "/":"").substr(md5(time()),0,5);
 			$param['id'] = $id;
 			$param['parent_id'] = dirname($id);
 			$param['created'] = date('Y-m-d H:i:s');
@@ -198,7 +201,7 @@ WHERE t1.name = ‘Home’;
 		if ($req['id']) {
 			array_push($values,"^".$req['id']);
 		} else {
-			array_push($values,"index");
+			array_push($values,"");
 		}
 		$rows = $this->dbh->getAll($sql,$values);
 		// TODO $req['post']['ids']

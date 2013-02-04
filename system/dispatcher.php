@@ -10,7 +10,7 @@ class Dispatcher {
                 if ($this->req['controller']) {
                         $classname = ucwords($this->req['controller'])."Controller";
                 } else {
-                        $classname = ucwords(DEFAULT_CONTROLLER)."Controller";
+                        $classname = ucwords(DEFAULT_CLASS)."Controller";
                 }
 		$controller =& new $classname();
 

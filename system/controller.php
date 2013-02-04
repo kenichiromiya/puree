@@ -9,16 +9,18 @@ class Controller
 		if ($this->req['controller']) {
 			$classname = ucwords($this->req['controller'])."Model";
 		} else {
-			$classname = ucwords(DEFAULT_CONTROLLER)."Model";
+			$classname = ucwords(DEFAULT_CLASS)."Model";
 		}
                 $this->model =& new $classname();
+		/*
 		$this->sessionsmodel = new SessionsModel();
 		$var = $this->sessionsmodel->get($this->req);
 		$this->session = $var['session'];
+                $this->var['session'] = $var['session'];
+		*/
 		$this->validator = new Validator();
                 $this->var['req'] = $this->req;
                 $this->var['base'] = BASE;
-                $this->var['session'] = $this->session;
                 if ($this->req['controller']){
                         $this->controller = $this->req['controller']."/";
                 } else {
