@@ -1,8 +1,8 @@
 <?php
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 if ($_POST['_method']) {
-	$_SERVER["REQUEST_METHOD"] = strtoupper($_POST['_method']);
-	unset($_POST['_method']);
+    $_SERVER["REQUEST_METHOD"] = strtoupper($_POST['_method']);
+    unset($_POST['_method']);
 }
 /*
 if ($_POST['put']){

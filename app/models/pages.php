@@ -6,50 +6,50 @@ class PagesModel extends Model {
 		parent::__construct();
 	}
 
-        public function get($req){
-                $var = $req;
+    public function get($req){
+        $var = $req;
 
-                if ($req['tag']) {
-			$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM {$this->table} ";
-			$values = array();
-			$sql .= "WHERE tags LIKE ? ";
-			$sql .= "ORDER BY createtime DESC ";
-			if ($req['page']) {
-				$start = ($req['page']-1) * PER_PAGE;
-				$sql .= "LIMIT ".$start.",".PER_PAGE;
-			} else {
-				$sql .= "LIMIT ".PER_PAGE;
-			}
-			array_push($values,"%".$req['tag']."%");
-			$var['rows'] = $this->dbh->getAll($sql,$values);
-			$var['count'] = $this->dbh->rowCount();
+        if ($req['tag']) {
+            $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM {$this->table} ";
+            $values = array();
+            $sql .= "WHERE tags LIKE ? ";
+            $sql .= "ORDER BY createtime DESC ";
+            if ($req['page']) {
+                $start = ($req['page']-1) * PER_PAGE;
+                $sql .= "LIMIT ".$start.",".PER_PAGE;
+            } else {
+                $sql .= "LIMIT ".PER_PAGE;
+            }
+            array_push($values,"%".$req['tag']."%");
+            $var['rows'] = $this->dbh->getAll($sql,$values);
+            $var['count'] = $this->dbh->rowCount();
 /*
-		} elseif ($req['id'] == "") {
-			$sql = "SELECT * FROM {$this->table} ";
-			$values = array();
-			$sql .= "WHERE id = 'index' ";
-			if ($row = $this->dbh->getRow($sql,$values)) {
-				//$var = $var + $row;
-				$var = $row;
-			}
+        } elseif ($req['id'] == "") {
+            $sql = "SELECT * FROM {$this->table} ";
+            $values = array();
+            $sql .= "WHERE id = 'index' ";
+            if ($row = $this->dbh->getRow($sql,$values)) {
+                //$var = $var + $row;
+                $var = $row;
+            }
 
-			$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM {$this->table} ";
-			$values = array();
-			//$sql .= "WHERE id != ? AND id LIKE ? ";
-			$sql .= "WHERE id != 'index' AND id REGEXP '^[^/]+/[^/]+/?$'";
-			$sql .= "ORDER BY createtime DESC ";
-			if ($req['page']) {
-				$start = ($req['page']-1) * PER_PAGE;
-				$sql .= "LIMIT ".$start.",".PER_PAGE;
-			} else {
-				$sql .= "LIMIT ".PER_PAGE;
-			}
-			$var['rows'] = $this->dbh->getAll($sql,$values);
-			$var['count'] = $this->dbh->rowCount();
-			$var['documents'] = array();
-			$var['folders'] = array();
-*/
-		} else {
+            $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM {$this->table} ";
+            $values = array();
+            //$sql .= "WHERE id != ? AND id LIKE ? ";
+            $sql .= "WHERE id != 'index' AND id REGEXP '^[^/]+/[^/]+/?$'";
+            $sql .= "ORDER BY createtime DESC ";
+            if ($req['page']) {
+                $start = ($req['page']-1) * PER_PAGE;
+                $sql .= "LIMIT ".$start.",".PER_PAGE;
+            } else {
+                $sql .= "LIMIT ".PER_PAGE;
+            }
+            $var['rows'] = $this->dbh->getAll($sql,$values);
+            $var['count'] = $this->dbh->rowCount();
+            $var['documents'] = array();
+            $var['folders'] = array();
+ */
+        } else {
 /*
 SELECT t1.name AS lev1, t2.name as lev2, t3.name as lev3, t4.name as lev4
 
@@ -62,55 +62,75 @@ LEFT JOIN category  t3 ON t3.cat_parent = t2.cat_id
 LEFT JOIN category  t4 ON t4.cat_parent = t3.cat_id
 
 WHERE t1.name = ‘Home’;
-*/
+ */
 
-			$values = array();
-			$sql = "SELECT T1.*,";
-			$sql .= "T1.id AS id1,T1.title AS title1,";
-			$sql .= "T2.id AS id2,T2.title AS title2,";
-			$sql .= "T3.id AS id3,T3.title AS title3,";
-			$sql .= "T4.id AS id4,T4.title AS title4,";
-			$sql .= "T5.id AS id5,T5.title AS title5 ";
-			$sql .= "FROM {$this->table} T1 ";
-			$sql .= "LEFT JOIN {$this->table} T2 ON T1.parent_id = T2.id ";
-			$sql .= "LEFT JOIN {$this->table} T3 ON T2.parent_id = T3.id ";
-			$sql .= "LEFT JOIN {$this->table} T4 ON T3.parent_id = T4.id ";
-			$sql .= "LEFT JOIN {$this->table} T5 ON T4.parent_id = T5.id ";
-			$sql .= "WHERE T1.id = ? ";
-			if ($req['id']) {
-				array_push($values,$req['id']);
-			} else {
-				array_push($values,'');
-			}
-			if ($row = $this->dbh->getRow($sql,$values)) {
-				//$var = $var + $row;
-				$var = $row;
-				//print_r($row);
-			}
+            $values = array();
+            $sql = "SELECT T1.*,";
+            $sql .= "T1.id AS id1,T1.title AS title1,";
+            $sql .= "T2.id AS id2,T2.title AS title2,";
+            $sql .= "T3.id AS id3,T3.title AS title3,";
+            $sql .= "T4.id AS id4,T4.title AS title4,";
+            $sql .= "T5.id AS id5,T5.title AS title5 ";
+            $sql .= "FROM {$this->table} T1 ";
+            $sql .= "LEFT JOIN {$this->table} T2 ON T1.parent_id = T2.id ";
+            $sql .= "LEFT JOIN {$this->table} T3 ON T2.parent_id = T3.id ";
+            $sql .= "LEFT JOIN {$this->table} T4 ON T3.parent_id = T4.id ";
+            $sql .= "LEFT JOIN {$this->table} T5 ON T4.parent_id = T5.id ";
+            $sql .= "WHERE T1.id = ? ";
+            if ($req['id']) {
+                array_push($values,$req['id']);
+            } else {
+                array_push($values,'');
+            }
+            if ($row = $this->dbh->getRow($sql,$values)) {
+                //$var = $var + $row;
+                $var = $row;
+                //print_r($row);
+            }
 
-			$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM {$this->table} ";
-			$values = array();
-			//$sql .= "WHERE id != ? AND id LIKE ? ";
-			$sql .= "WHERE id != ? AND id REGEXP ? ";
-			$sql .= "ORDER BY createtime DESC ";
-			if ($req['page']) {
-				$start = ($req['page']-1) * PER_PAGE;
-				$sql .= "LIMIT ".$start.",".PER_PAGE;
-			} else {
-				$sql .= "LIMIT ".PER_PAGE;
-			}
-			//array_push($values,$id,$req['id']."%");
-			if ($req['id']) {
-				array_push($values,$req['id'],"^".$req['id']."/[^/]+/?$");
-			} else {
-				array_push($values,'',"^.*$");
-			}
-			//array_push($values,$req['id'],"^".($req['id'] ? $req['id']."/" : "")."[^/]+/?$");
-			$var['rows'] = $this->dbh->getAll($sql,$values);
-			$var['count'] = $this->dbh->rowCount();
-		}
-                return $var;
+            $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM {$this->table} ";
+            $values = array();
+            //$sql .= "WHERE id != ? AND id LIKE ? ";
+            $sql .= "WHERE id != ? AND id REGEXP ? AND filename != ''";
+            $sql .= "ORDER BY createtime DESC ";
+            if ($req['page']) {
+                $start = ($req['page']-1) * PER_PAGE;
+                $sql .= "LIMIT ".$start.",".PER_PAGE;
+            } else {
+                $sql .= "LIMIT ".PER_PAGE;
+            }
+            //array_push($values,$id,$req['id']."%");
+            array_push($values,$req['id'],"^".$req['id'].".*");
+            /*
+            if ($req['id']) {
+                array_push($values,$req['id'],"^".$req['id']."/[^/]+/?$");
+            } else {
+                array_push($values,'',"^.*$");
+            }
+             */
+            //array_push($values,$req['id'],"^".($req['id'] ? $req['id']."/" : "")."[^/]+/?$");
+            $var['rows'] = $this->dbh->getAll($sql,$values);
+            $var['count'] = $this->dbh->rowCount();
+
+
+            $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM {$this->table} ";
+            $values = array();
+            //$sql .= "WHERE id != ? AND id LIKE ? ";
+            $sql .= "WHERE id != ? AND id REGEXP ? AND filename = '' ";
+            $sql .= "ORDER BY createtime DESC ";
+            //array_push($values,$id,$req['id']."%");
+            //array_push($values,$req['id'],"^".$req['id'].".*");
+            //array_push($values,$req['id'],"^".$req['id']."/[^/]+/?$");
+            if ($req['id']) {
+                array_push($values,$req['id'],"^".$req['id']."/[^/]+/?$");
+            } else {
+                array_push($values,$req['id'],"^[^/]+/?$");
+            }
+            $var['pages']['rows'] = $this->dbh->getAll($sql,$values);
+            $var['pages']['count'] = $this->dbh->rowCount();
         }
+        return $var;
+    }
 
         public function put($req){
 		// TODO $req['post']['ids']

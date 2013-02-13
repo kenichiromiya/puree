@@ -106,9 +106,11 @@ if (!file_exists("upload/thumb/".$row['filename'])){
 <a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['filename']?>" ></a>
 <?php else :?>
 <?php 
+/*
 $images = array_diff( scandir("upload/thumb/".$row['id']), array(".", "..") );
 $images = array_filter($images,"image");
 $image = array_pop($images);
+*/
 if ($image){
 ?>
 <a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['id']?>/<?=$image?>"></a>
@@ -146,6 +148,11 @@ if ($image){
 </div>
 -->
 <?php include("pagination.php")?>
+<?php
+foreach($pages['rows'] as $row) :
+?>
+<a href="<?=BASE?><?=$row['id']?>"><?=$row['title']?></a>
+<?php endforeach; ?>
 </div><!--main-->
 <?php //if($session['account_id'] and preg_match("/\/$/",$req['id'])){ ?>
 
