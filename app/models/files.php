@@ -1,10 +1,9 @@
 <?php
-class PagesModel extends Model {
+class FilesModel extends Model {
 	public $error;
 
 	public function __construct(){
 		parent::__construct();
-        $this->files_table = TABLE_PREFIX.'files';
 	}
 
     public function get($req){
@@ -117,7 +116,7 @@ WHERE t1.name = ‘Home’;
             $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM {$this->table} ";
             $values = array();
             //$sql .= "WHERE id != ? AND id LIKE ? ";
-            $sql .= "WHERE id != ? AND id REGEXP ? ";
+            $sql .= "WHERE id != ? AND id REGEXP ? AND filename = '' ";
             $sql .= "ORDER BY createtime DESC ";
             //array_push($values,$id,$req['id']."%");
             //array_push($values,$req['id'],"^".$req['id'].".*");
@@ -129,22 +128,6 @@ WHERE t1.name = ‘Home’;
             }
             $var['pages']['rows'] = $this->dbh->getAll($sql,$values);
             $var['pages']['count'] = $this->dbh->rowCount();
-
-            $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM {$this->files_table} ";
-            $values = array();
-            //$sql .= "WHERE id != ? AND id LIKE ? ";
-            $sql .= "WHERE id != ? AND id REGEXP ? ";
-            $sql .= "ORDER BY createtime DESC ";
-            //array_push($values,$id,$req['id']."%");
-            //array_push($values,$req['id'],"^".$req['id'].".*");
-            //array_push($values,$req['id'],"^".$req['id']."/[^/]+/?$");
-            if ($req['id']) {
-                array_push($values,$req['id'],"^".$req['id']."/[^/]+/?$");
-            } else {
-                array_push($values,$req['id'],"^[^/]+/?$");
-            }
-            $var['files']['rows'] = $this->dbh->getAll($sql,$values);
-            $var['files']['count'] = $this->dbh->rowCount();
         }
         return $var;
     }

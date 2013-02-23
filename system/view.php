@@ -30,7 +30,7 @@ class View
 		extract($data);
                 ob_start();
 		//include_once("functions.php");
-		//set_include_path(".:app/views/");
+		set_include_path(".:app/views/");
 		include(PUREE_DIR."app/views/".$this->template);
                 $contents = ob_get_contents();
                 ob_end_clean();

@@ -18,6 +18,7 @@ class CommonController extends Controller
         public function get() {
                 $var = $this->model->get($this->req);
 		$this->var = $this->var + $var;
+/*
 		if ($this->req['view']) {
 			$view = ".".$this->req['view'];
 		} elseif ($var['view']) {
@@ -25,6 +26,7 @@ class CommonController extends Controller
                 } else  {
 			$view = "";
 		}
+*/
 		if ($this->req['view'] == "add") {
 			$this->var['form'] = array();
 			$this->var['form']['_method'] = "post";
@@ -44,13 +46,15 @@ class CommonController extends Controller
 		*/
 		$page = isset($this->req['page']) ? $this->req['page'] : 1;
 		$this->var['next'] = $page+1;
+/*
 		$file = "index".$view.'.php';
 		if($this->req['controller']){
 			$file = $this->req['controller']."/".$file;
 		} else {
 			$file = $file;
 		}
-                $this->view = new View($file);
+*/
+                $this->view = new View($this->template);
                 $contents = $this->view->getcontents($this->var);
                 echo $contents;
         }

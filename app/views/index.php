@@ -72,9 +72,11 @@ echo Markdown($text);
 <input id="location" type="text" size="15">
 <button onclick='location.href="<?=BASE?><?php echo preg_replace("#[^/]+$#","",$id)?>"+$("#location").val()+"?view=edit"'><?=_('Add')?></button>
 -->
+<form action="<?=BASE?>files/<?=$req['id']?>">
 <div id="drag" draggable="true">
 <?=_('Drag to add files')?>
 </div><!--drag-->
+</form>
 <?php } ?>
 <div id="items" >
 <?php
@@ -86,7 +88,7 @@ foreach($page['rows'] as $row) :
 <form action="<?=BASE?>" method="post">
 -->
 <?php
-foreach($rows as $row) :
+foreach($files['rows'] as $row) :
 ?>
 <div class="item">
 <div class="thumb">
@@ -103,7 +105,7 @@ if (!file_exists("upload/thumb/".$row['filename'])){
 */
 
 ?>
-<a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['filename']?>" ></a>
+<a href="<?=BASE?>files/<?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['filename']?>" ></a>
 <?php else :?>
 <?php 
 /*
@@ -128,7 +130,7 @@ if ($image){
 <input type="checkbox" name="id[]" value="<?=$row['id']?>">
 -->
 <?php //if($session['account_id'] and preg_match("/".$session['account_id']."/",$req['id'])){ ?>
-<form action="<?=BASE?><?=$row['id']?>" method="post">
+<form action="<?=BASE?>files/<?=$row['id']?>" method="post">
 <input type="hidden" name="_method" value="delete">
 <input type="submit" value="<?=_('Delete')?>">
 </form>

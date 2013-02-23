@@ -31,6 +31,37 @@ class Controller
                 } else {
                         $this->parent_id = "";
                 }
+                if ($this->req['view']) {
+                    $view = ".".$this->req['view'];
+                } elseif ($var['view']) {
+                    $view = ".".$var['view'];
+                } else  {
+                    $view = "";
+                }
+                if($this->req['view']){
+                    $this->template .= $this->req['view'];
+                } elseif($this->req['id']){
+                    $this->template = 'detail';
+                } else {
+                    $this->template = 'index';
+                }
+                if($this->req['extension']){
+                    $this->template .= '.'.$this->req['extension'];
+                }
+                if($this->req['controller']){
+                    $this->template = $this->req['controller']."/".$this->template;
+                }
+                $this->template .= '.php';
+                //echo $this->template;
+/*
+                $file = "index".$view.'.php';
+                if($this->req['controller']){
+                    $this->template = $this->req['controller']."/".$file;
+                } else {
+                    $this->tamplate = $file;
+                }
+*/
+
         }
 
         public function get() {

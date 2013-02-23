@@ -1,5 +1,13 @@
 <form action="<?=BASE?><?=$id?>" method="post">
-<input type="hidden" name="_method" value="<?=$form['_method']?>">
+<?php 
+if($req['view'] == "add"){
+    $method = "post";
+}
+if($req['view'] == "edit"){
+    $method = "put";
+}
+?>
+<input type="hidden" name="_method" value="<?=$method?>">
 <input type="hidden" name="type" value="page">
 <input type="hidden" name="account_id" value="<?=$session['account_id']?>">
 <!--

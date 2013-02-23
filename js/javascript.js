@@ -96,7 +96,10 @@ $(document).ready(function () {
         // XHR で送信
         //url = document.URL.replace(/\/[a-zA-z0-9_]+$/,"/");
         //url = document.URL+"<?=$session['account_id']?>";
-	url = document.URL;
+	//url = document.URL;
+    alert($("#drag").parent().get(0).action);
+    url = $("#drag").parent().get(0).action;
+	//url = "<?=BASE?>"+"files/"+"<?=$req['id']?>";
 	$.ajax({
 		url: url,
 		type: "POST",
