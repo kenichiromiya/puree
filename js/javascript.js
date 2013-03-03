@@ -97,8 +97,9 @@ $(document).ready(function () {
         //url = document.URL.replace(/\/[a-zA-z0-9_]+$/,"/");
         //url = document.URL+"<?=$session['account_id']?>";
 	//url = document.URL;
-    alert($("#drag").parent().get(0).action);
+    //alert($("#drag").parent().get(0).action);
     url = $("#drag").parent().get(0).action;
+    redirect = $("#drag").parent().find("input[name=redirect]").val();
 	//url = "<?=BASE?>"+"files/"+"<?=$req['id']?>";
 	$.ajax({
 		url: url,
@@ -109,7 +110,11 @@ $(document).ready(function () {
 		success: function(html){
 		},
 		complete: function(html){
+            if(redirect) {
+			document.location = redirect;
+            } else {
 			document.location = url;
+            }
 		}
 	});
     };

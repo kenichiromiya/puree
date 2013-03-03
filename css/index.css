@@ -4,6 +4,12 @@
 	text-align:left;
 	float:left;
 }
+#sub {
+	width:150px;
+	margin-bottom:10px; /*上下の間隔をあける*/
+	text-align:left;
+	float:left;
+}
 ul {
 	padding-left: 5px;
 }

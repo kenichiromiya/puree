@@ -5,7 +5,7 @@ class FilesModel extends Model {
 	public function __construct(){
 		parent::__construct();
 	}
-
+/*
     public function get($req){
         $var = $req;
 
@@ -23,46 +23,7 @@ class FilesModel extends Model {
             array_push($values,"%".$req['tag']."%");
             $var['rows'] = $this->dbh->getAll($sql,$values);
             $var['count'] = $this->dbh->rowCount();
-/*
-        } elseif ($req['id'] == "") {
-            $sql = "SELECT * FROM {$this->table} ";
-            $values = array();
-            $sql .= "WHERE id = 'index' ";
-            if ($row = $this->dbh->getRow($sql,$values)) {
-                //$var = $var + $row;
-                $var = $row;
-            }
-
-            $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM {$this->table} ";
-            $values = array();
-            //$sql .= "WHERE id != ? AND id LIKE ? ";
-            $sql .= "WHERE id != 'index' AND id REGEXP '^[^/]+/[^/]+/?$'";
-            $sql .= "ORDER BY createtime DESC ";
-            if ($req['page']) {
-                $start = ($req['page']-1) * PER_PAGE;
-                $sql .= "LIMIT ".$start.",".PER_PAGE;
-            } else {
-                $sql .= "LIMIT ".PER_PAGE;
-            }
-            $var['rows'] = $this->dbh->getAll($sql,$values);
-            $var['count'] = $this->dbh->rowCount();
-            $var['documents'] = array();
-            $var['folders'] = array();
- */
         } else {
-/*
-SELECT t1.name AS lev1, t2.name as lev2, t3.name as lev3, t4.name as lev4
-
-FROM category t1
-
-LEFT JOIN category  t2 ON t2.cat_parent = t1.cat_id
-
-LEFT JOIN category  t3 ON t3.cat_parent = t2.cat_id
-
-LEFT JOIN category  t4 ON t4.cat_parent = t3.cat_id
-
-WHERE t1.name = ‘Home’;
- */
 
             $values = array();
             $sql = "SELECT T1.*,";
@@ -101,13 +62,6 @@ WHERE t1.name = ‘Home’;
             }
             //array_push($values,$id,$req['id']."%");
             array_push($values,$req['id'],"^".$req['id'].".*");
-            /*
-            if ($req['id']) {
-                array_push($values,$req['id'],"^".$req['id']."/[^/]+/?$");
-            } else {
-                array_push($values,'',"^.*$");
-            }
-             */
             //array_push($values,$req['id'],"^".($req['id'] ? $req['id']."/" : "")."[^/]+/?$");
             $var['rows'] = $this->dbh->getAll($sql,$values);
             $var['count'] = $this->dbh->rowCount();
@@ -131,6 +85,7 @@ WHERE t1.name = ‘Home’;
         }
         return $var;
     }
+*/
 
         public function put($req){
 		// TODO $req['post']['ids']

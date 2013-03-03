@@ -7,12 +7,12 @@ class Dispatcher {
 	}
 
 	public function dispatch() {
-                if ($this->req['controller']) {
+                if (isset($this->req['controller'])) {
                         $classname = ucwords($this->req['controller'])."Controller";
                 } else {
                         $classname = ucwords(DEFAULT_CLASS)."Controller";
                 }
-		$controller =& new $classname();
+		$controller = new $classname();
 
                 switch ($_SERVER["REQUEST_METHOD"]) {
                         case "POST":

@@ -60,6 +60,24 @@ endif;
 echo Markdown($text);
 //$markdown = new Markdown();
 //echo $markdown->parse($row['text']);
+/*
+require_once "Text/Wiki.php";
+$wiki = new Text_Wiki();
+
+$wiki->setFormatConf('Xhtml', 'translate', HTML_SPECIALCHARS);
+echo $wiki->transform($text, 'xhtml');
+*/
+require_once "Text/Wiki/Mediawiki.php";
+
+$wiki=new Text_Wiki_Mediawiki();
+
+//$wiki->setRenderConf('Xhtml', 'Wikilink', 'new_url', BASE.$req['id'].'/%s');
+$wiki->setRenderConf('Xhtml', 'Wikilink', 'view_url', BASE.$req['id'].'/%s');
+$wiki->setRenderConf('Xhtml', 'Wikilink', 'new_url', BASE.$req['id'].'/%s');
+$wiki->setRenderConf('Xhtml', 'Wikilink', 'new_text', '');
+$wiki->setFormatConf('Xhtml','translate',HTML_SPECIALCHARS);
+echo $wiki->transform($text, 'xhtml');
+
 ?>
 </div><!--text-->
 <div id="twitter">
@@ -72,12 +90,52 @@ echo Markdown($text);
 <input id="location" type="text" size="15">
 <button onclick='location.href="<?=BASE?><?php echo preg_replace("#[^/]+$#","",$id)?>"+$("#location").val()+"?view=edit"'><?=_('Add')?></button>
 -->
-<form action="<?=BASE?>files/<?=$req['id']?>">
-<div id="drag" draggable="true">
-<?=_('Drag to add files')?>
-</div><!--drag-->
-</form>
 <?php } ?>
+<div id="items" >
+<?php
+foreach($rows as $row) :
+?>
+<div class="item">
+<div class="thumb">
+<?php if($row['title']){ ?>
+<p><?=$row['title']?></p>
+<?php } ?>
+<?php if($row['filename']) :?>
+<a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['filename']?>" ></a>
+<?php else :?>
+<?php
+/*
+$images = array_diff( scandir("upload/thumb/".$row['id']), array(".", "..") );
+$images = array_filter($images,"image");
+$image = array_pop($images);
+*/
+if ($image){
+?>
+<a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['id']?>/<?=$image?>"></a>
+<?php
+} else {
+?>
+<!--a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/folder_org_t256.png" --></a>
+<a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/docu_txt.png" ></a>
+<?php
+}
+?>
+<?php endif; ?>
+<?php if($editable): ?>
+<!--
+<input type="checkbox" name="id[]" value="<?=$row['id']?>">
+-->
+<?php //if($session['account_id'] and preg_match("/".$session['account_id']."/",$req['id'])){ ?>
+<form action="<?=BASE?><?=$row['id']?>" method="post">
+<input type="hidden" name="_method" value="delete">
+<input type="submit" value="<?=_('Delete')?>">
+</form>
+<?php endif; ?>
+</div><!--thumb-->
+</div><!--item-->
+<?php endforeach; ?>
+</div><!--items-->
+
 <div id="items" >
 <?php
 /*
@@ -88,7 +146,7 @@ foreach($page['rows'] as $row) :
 <form action="<?=BASE?>" method="post">
 -->
 <?php
-foreach($files['rows'] as $row) :
+foreach($files as $row) :
 ?>
 <div class="item">
 <div class="thumb">
@@ -130,8 +188,9 @@ if ($image){
 <input type="checkbox" name="id[]" value="<?=$row['id']?>">
 -->
 <?php //if($session['account_id'] and preg_match("/".$session['account_id']."/",$req['id'])){ ?>
-<form action="<?=BASE?><?=$row['id']?>" method="post">
+<form action="<?=BASE?>files/<?=$row['id']?>" method="post">
 <input type="hidden" name="_method" value="delete">
+<input type="hidden" name="redirect" value="<?=BASE?><?=$req['id']?>">
 <input type="submit" value="<?=_('Delete')?>">
 </form>
 <?php endif; ?>
@@ -149,6 +208,12 @@ if ($image){
 	<a href="?page=<?=$next?>"><?=_('Next')?></a>
 </div>
 -->
+<form action="<?=BASE?>files/<?=$req['id']?>">
+<input type="hidden" name="redirect" value="<?=BASE?><?=$req['id']?>">
+<div id="drag" draggable="true">
+<?=_('Drag to add files')?>
+</div><!--drag-->
+</form>
 <?php include("pagination.php")?>
 <?php
 foreach($pages['rows'] as $row) :

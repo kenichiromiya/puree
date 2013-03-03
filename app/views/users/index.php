@@ -15,6 +15,7 @@
 <!--script type="text/javascript" src="<?=BASE?>js/bottom.js"></script-->
 </head>
 <body>
+users
 <?php
 include_once "app/functions/markdown.php";
 ?>
@@ -72,10 +73,23 @@ echo Markdown($text);
 <input id="location" type="text" size="15">
 <button onclick='location.href="<?=BASE?><?php echo preg_replace("#[^/]+$#","",$id)?>"+$("#location").val()+"?view=edit"'><?=_('Add')?></button>
 -->
+<form action="<?=BASE?>files/<?=$req['id']?>">
+<div id="drag" draggable="true">
+<?=_('Drag to add files')?>
+</div><!--drag-->
+</form>
 <?php } ?>
 <div id="items" >
 <?php
-foreach($rows as $row) :
+/*
+foreach($page['rows'] as $row) :
+?>
+<?php endforeach; */?>
+<!--
+<form action="<?=BASE?>" method="post">
+-->
+<?php
+foreach($pages['rows'] as $row) :
 ?>
 <div class="item">
 <div class="thumb">
@@ -83,16 +97,41 @@ foreach($rows as $row) :
 <p><?=$row['title']?></p>
 <?php } ?>
 <?php if($row['filename']) :?>
-<a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['filename']?>" ></a>
+<?php
+/*
+if (!file_exists("upload/thumb/".$row['filename'])){
+	$image = new Image();
+	$image->resize("upload/thumb/".$row['filename'],"upload/".$row['filename'],200,300);
+}
+*/
+
+?>
+<a href="<?=BASE?>files/<?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['filename']?>" ></a>
 <?php else :?>
+<?php 
+/*
+$images = array_diff( scandir("upload/thumb/".$row['id']), array(".", "..") );
+$images = array_filter($images,"image");
+$image = array_pop($images);
+*/
+if ($image){
+?>
+<a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['id']?>/<?=$image?>"></a>
+<?php
+} else {
+?>
+<!--a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/folder_org_t256.png" --></a>
 <a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/docu_txt.png" ></a>
+<?php
+}
+?>
 <?php endif; ?>
 <?php if($editable): ?>
 <!--
 <input type="checkbox" name="id[]" value="<?=$row['id']?>">
 -->
 <?php //if($session['account_id'] and preg_match("/".$session['account_id']."/",$req['id'])){ ?>
-<form action="<?=BASE?><?=$row['id']?>" method="post">
+<form action="<?=BASE?>files/<?=$row['id']?>" method="post">
 <input type="hidden" name="_method" value="delete">
 <input type="submit" value="<?=_('Delete')?>">
 </form>
@@ -100,6 +139,11 @@ foreach($rows as $row) :
 </div><!--thumb-->
 </div><!--item-->
 <?php endforeach; ?>
+<!--
+<input type="submit" name="_method" value="delete">
+<input type="submit" name="_method" value="put">
+</form>
+-->
 </div><!--items-->
 <!--
 <div id="page-nav">
@@ -108,6 +152,17 @@ foreach($rows as $row) :
 -->
 <?php include("pagination.php")?>
 </div><!--main-->
+<!--
+<div id="sub">
+<?php
+foreach($pages['rows'] as $row) :
+?>
+<ul>
+<li><a href="<?=BASE?><?=$row['id']?>"><?=$row['title']?></a></li>
+</ul>
+<?php endforeach; ?>
+</div>
+-->
 <?php //if($session['account_id'] and preg_match("/\/$/",$req['id'])){ ?>
 
 <!--

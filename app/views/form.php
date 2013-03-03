@@ -1,4 +1,4 @@
-<form action="<?=BASE?><?=$id?>" method="post">
+<form action="<?=BASE?><?=$req['id']?>" method="post">
 <?php 
 if($req['view'] == "add"){
     $method = "post";
@@ -23,6 +23,7 @@ if($req['view'] == "edit"){
 -->
 <label for="title"><?=_('Title')?></label>
 <input id="title" type="text" name="title" size="60" value="<?=$form['title']?>"/><br/>
+<!--
 <label for="view"><?=_('View')?></label>
 <select id="view" name="view">
 <option value="" <?php if($form['view'] == ''){ echo 'selected';}?>></option>
@@ -30,6 +31,7 @@ if($req['view'] == "edit"){
 </select><br/>
 <label for="filename"><?=_('Filename')?></label>
 <input id="filename" type="text" name="filename" value="<?=$form['filename']?>"/><br/>
+-->
 <label for="tags"><?=_('Tags')?></label>
 <input id="tags" type="text" name="tags" value="<?=$form['tags']?>"/><br/>
 <!--

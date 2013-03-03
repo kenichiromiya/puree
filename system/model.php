@@ -21,7 +21,6 @@ class Model
 				$sql .= "WHERE id = ? ";
 				array_push($values,$req['id']);
 			$var = $this->dbh->getRow($sql,$values);
-			$var['id'] = $req['id'];
 		} else {
 			$sql = "SELECT * FROM {$this->table} ";
 			$values = array();

@@ -6,12 +6,12 @@ class Controller
         public function __construct() {
                 $singleton = Request::singleton();
                 $this->req = $singleton->req;
-		if ($this->req['controller']) {
+		if (isset($this->req['controller'])) {
 			$classname = ucwords($this->req['controller'])."Model";
 		} else {
 			$classname = ucwords(DEFAULT_CLASS)."Model";
 		}
-                $this->model =& new $classname();
+                $this->model = new $classname();
 		/*
 		$this->sessionsmodel = new SessionsModel();
 		$var = $this->sessionsmodel->get($this->req);
@@ -21,7 +21,7 @@ class Controller
 		$this->validator = new Validator();
                 $this->var['req'] = $this->req;
                 $this->var['base'] = BASE;
-                if ($this->req['controller']){
+                if (isset($this->req['controller'])){
                         $this->controller = $this->req['controller']."/";
                 } else {
                         $this->controller = "";
@@ -31,24 +31,24 @@ class Controller
                 } else {
                         $this->parent_id = "";
                 }
-                if ($this->req['view']) {
+                if (isset($this->req['view'])) {
                     $view = ".".$this->req['view'];
                 } elseif ($var['view']) {
                     $view = ".".$var['view'];
                 } else  {
                     $view = "";
                 }
-                if($this->req['view']){
+                if(isset($this->req['view'])){
                     $this->template .= $this->req['view'];
                 } elseif($this->req['id']){
                     $this->template = 'detail';
                 } else {
                     $this->template = 'index';
                 }
-                if($this->req['extension']){
+                if(isset($this->req['extension'])){
                     $this->template .= '.'.$this->req['extension'];
                 }
-                if($this->req['controller']){
+                if(isset($this->req['controller'])){
                     $this->template = $this->req['controller']."/".$this->template;
                 }
                 $this->template .= '.php';
@@ -84,7 +84,11 @@ class Controller
         }
         public function delete() {
                 $this->model->delete($this->req);
-		header("Location:".BASE.$this->controller.dirname($this->req['id']));
+                if($this->req['redirect']){
+                    header("Location:".$this->req['redirect']);
+                } else {
+                    header("Location:".BASE.$this->controller.dirname($this->req['id']));
+                }
         }
 }
 ?>

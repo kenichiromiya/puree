@@ -4,8 +4,47 @@ class AccountsModel extends Model {
 
 	public function __construct(){
 		parent::__construct();
+        $this->pages_table = TABLE_PREFIX.'pages';
+        $this->files_table = TABLE_PREFIX.'files';
 	}
 
+    public function get($req) {
+        $var = $req;
+
+        if ($req['id']) {
+            $sql = "SELECT * FROM {$this->table} ";
+            $values = array();
+                $sql .= "WHERE id = ? ";
+                array_push($values,$req['id']);
+            $var = $this->dbh->getRow($sql,$values);
+            $sql = "SELECT SQL_CALC_FOUND_ROWS T1.*,T2.filename FROM {$this->pages_table} T1 ";
+            $values = array();
+            //$sql .= "WHERE id != ? AND id LIKE ? ";
+            $sql .= "LEFT JOIN {$this->files_table} T2 ON T2.parent_id = T1.id ";
+            $sql .= "WHERE T1.account_id = ? ";
+            $sql .= "GROUP BY T1.id ";
+            $sql .= "ORDER BY T1.createtime DESC ";
+            if ($req['page']) {
+                $start = ($req['page']-1) * PER_PAGE;
+                $sql .= "LIMIT ".$start.",".PER_PAGE;
+            } else {
+                $sql .= "LIMIT ".PER_PAGE;
+            }
+            array_push($values,$req['id']);
+            $var['rows'] = $this->dbh->getAll($sql,$values);
+            $var['count'] = $this->dbh->rowCount();
+        } else {
+            $sql = "SELECT * FROM {$this->table} ";
+            $values = array();
+            $sql .= "ORDER BY id ";
+            if ($req['limit']) {
+                $sql .= "LIMIT {$req['limit']}";
+            }
+            $var['rows'] = $this->dbh->getAll($sql,$values);
+        }
+        return $var;
+
+    }
 	public function post($req) {
 
 	}
