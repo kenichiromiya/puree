@@ -26,7 +26,7 @@ include_once "app/functions/markdown.php";
 <form action="<?=BASE?><?=$id?>" method="post">
 <input type="hidden" name="_method" value="put">
 <input type="hidden" name="type" value="page">
-<input type="hidden" name="account_id" value="<?=$session['account_id']?>">
+<input type="hidden" name="user_id" value="<?=$session['user_id']?>">
 <!--
 <label for="type"><?=_('Type')?></label>
 <select id="type" name="type">

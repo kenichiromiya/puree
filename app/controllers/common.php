@@ -10,9 +10,6 @@ class CommonController extends Controller
         $var = $this->sessionsmodel->get($this->req);
         $this->session = $var['session'];
         $this->var['session'] = $var['session'];
-        if ($this->session['role'] == "admin" or preg_match("#^".$this->session['account_id']."/#",$this->req['id'])) {
-            $this->var['editable'] = TRUE;
-        }
     }
 
     public function get() {
@@ -27,14 +24,6 @@ class CommonController extends Controller
             $view = "";
         }
  */
-        if ($this->req['view'] == "add") {
-            $this->var['form'] = array();
-            $this->var['form']['_method'] = "post";
-        }
-        if ($this->req['view'] == "edit") {
-            $this->var['form'] = $var;
-            $this->var['form']['_method'] = "put";
-        }
         /*
         if (preg_match("#[^/]$#",$this->req['id'])) {
             $file = "detail".$view.'.php';
@@ -58,9 +47,11 @@ class CommonController extends Controller
         if ($var['view']) {
             $this->template = $var['view'].".php";
         }
+/*
         if (!isset($var['id'])){
             $this->template = "add.php";
         }
+*/
         $this->view = new View($this->template);
         $contents = $this->view->getcontents($this->var);
         echo $contents;

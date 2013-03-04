@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <title><?=$config['title']?></title>
 <link rel="stylesheet" type="text/css" href="<?=$base?>css/style.css"/>
-<link rel="stylesheet" type="text/css" href="<?=$base?>css/accounts.css"/>
+<link rel="stylesheet" type="text/css" href="<?=$base?>css/users.css"/>
 </head>
 <body>
 <div id="wrapper">

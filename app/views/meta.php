@@ -1,24 +1,24 @@
 <div id="meta">
-<div class="account">
+<div class="user">
 <?php
 /*
-if (!file_exists("upload/accounts/thumb/<?=$row['account_id']?>/icon.jpeg")){
+if (!file_exists("upload/users/thumb/<?=$row['user_id']?>/icon.jpeg")){
 	$image = new Image();
-	$image->resize("upload/accounts/thumb/<?=$row['account_id']?>/icon.jpeg","images/pic_noimage110_dgray.jpg",50,50);
+	$image->resize("upload/users/thumb/<?=$row['user_id']?>/icon.jpeg","images/pic_noimage110_dgray.jpg",50,50);
 }
 */
 ?>
-<?php if ($account_id){?>
+<?php if ($user_id){?>
 <?=_('Uploaded by')?>
 <div class="icon">
-<a href="<?=BASE?>accounts/<?=$account_id?>"><img src="<?=BASE?>upload/accounts/thumb/<?=$account_id?>/icon.jpeg"></a>
+<a href="<?=BASE?>users/<?=$user_id?>"><img src="<?=BASE?>upload/users/thumb/<?=$user_id?>/icon.jpeg"></a>
 </div>
-<div class="account_id">
-<a href="<?=BASE?>accounts/<?=$account_id?>"><?=$account_id?></a>
+<div class="user_id">
+<a href="<?=BASE?>users/<?=$user_id?>"><?=$user_id?></a>
 </div>
 <?php } ?>
 
-</div><!--account-->
+</div><!--user-->
 <?php if ($created and $created != "0000-00-00 00:00:00"){?>
 <?=_('Created at')?>
 <div class="created">

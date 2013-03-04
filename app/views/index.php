@@ -87,11 +87,11 @@ foreach($rows as $row) :
 <?php else :?>
 <a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/docu_txt.png" ></a>
 <?php endif; ?>
-<?php if($editable): ?>
+<?php if($session['role'] == "admin" or $row['user_id'] == $session['user_id']): ?>
 <!--
 <input type="checkbox" name="id[]" value="<?=$row['id']?>">
 -->
-<?php //if($session['account_id'] and preg_match("/".$session['account_id']."/",$req['id'])){ ?>
+<?php //if($session['user_id'] and preg_match("/".$session['user_id']."/",$req['id'])){ ?>
 <form action="<?=BASE?><?=$row['id']?>" method="post">
 <input type="hidden" name="_method" value="delete">
 <input type="submit" value="<?=_('Delete')?>">
@@ -108,11 +108,11 @@ foreach($rows as $row) :
 -->
 <?php include("pagination.php")?>
 </div><!--main-->
-<?php //if($session['account_id'] and preg_match("/\/$/",$req['id'])){ ?>
+<?php //if($session['user_id'] and preg_match("/\/$/",$req['id'])){ ?>
 
 <!--
 <div id="contents">
-<?php if($session['account_id']){ ?>
+<?php if($session['user_id']){ ?>
 <input id="multiple" type="file" multiple="multiple" />
 <br />
 

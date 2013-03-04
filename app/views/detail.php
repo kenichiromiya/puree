@@ -91,50 +91,6 @@ echo $wiki->transform($text, 'xhtml');
 <button onclick='location.href="<?=BASE?><?php echo preg_replace("#[^/]+$#","",$id)?>"+$("#location").val()+"?view=edit"'><?=_('Add')?></button>
 -->
 <?php } ?>
-<div id="items" >
-<?php
-foreach($rows as $row) :
-?>
-<div class="item">
-<div class="thumb">
-<?php if($row['title']){ ?>
-<p><?=$row['title']?></p>
-<?php } ?>
-<?php if($row['filename']) :?>
-<a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['filename']?>" ></a>
-<?php else :?>
-<?php
-/*
-$images = array_diff( scandir("upload/thumb/".$row['id']), array(".", "..") );
-$images = array_filter($images,"image");
-$image = array_pop($images);
-*/
-if ($image){
-?>
-<a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['id']?>/<?=$image?>"></a>
-<?php
-} else {
-?>
-<!--a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/folder_org_t256.png" --></a>
-<a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/docu_txt.png" ></a>
-<?php
-}
-?>
-<?php endif; ?>
-<?php if($editable): ?>
-<!--
-<input type="checkbox" name="id[]" value="<?=$row['id']?>">
--->
-<?php //if($session['account_id'] and preg_match("/".$session['account_id']."/",$req['id'])){ ?>
-<form action="<?=BASE?><?=$row['id']?>" method="post">
-<input type="hidden" name="_method" value="delete">
-<input type="submit" value="<?=_('Delete')?>">
-</form>
-<?php endif; ?>
-</div><!--thumb-->
-</div><!--item-->
-<?php endforeach; ?>
-</div><!--items-->
 
 <div id="items" >
 <?php
@@ -183,11 +139,11 @@ if ($image){
 }
 ?>
 <?php endif; ?>
-<?php if($editable): ?>
+<?php if($session['role'] == "admin" or $row['user_id'] == $session['user_id']): ?>
 <!--
 <input type="checkbox" name="id[]" value="<?=$row['id']?>">
 -->
-<?php //if($session['account_id'] and preg_match("/".$session['account_id']."/",$req['id'])){ ?>
+<?php //if($session['user_id'] and preg_match("/".$session['user_id']."/",$req['id'])){ ?>
 <form action="<?=BASE?>files/<?=$row['id']?>" method="post">
 <input type="hidden" name="_method" value="delete">
 <input type="hidden" name="redirect" value="<?=BASE?><?=$req['id']?>">
@@ -221,11 +177,11 @@ foreach($pages['rows'] as $row) :
 <a href="<?=BASE?><?=$row['id']?>"><?=$row['title']?></a>
 <?php endforeach; ?>
 </div><!--main-->
-<?php //if($session['account_id'] and preg_match("/\/$/",$req['id'])){ ?>
+<?php //if($session['user_id'] and preg_match("/\/$/",$req['id'])){ ?>
 
 <!--
 <div id="contents">
-<?php if($session['account_id']){ ?>
+<?php if($session['user_id']){ ?>
 <input id="multiple" type="file" multiple="multiple" />
 <br />
 

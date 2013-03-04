@@ -49,11 +49,13 @@ class PagesModel extends Model {
                 //print_r($row);
             }
 
-            $sql = "SELECT * FROM {$this->table} ";
+            $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM {$this->table} ";
             $values = array();
             $sql .= "WHERE id = ? ";
             array_push($values,$req['id']);
             $var = $this->dbh->getRow($sql,$values);
+            // 0 or 1
+            $var['count'] = $this->dbh->rowCount();
 
 /*
             $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM {$this->table} ";
@@ -182,7 +184,7 @@ class PagesModel extends Model {
 				$height = $size[1];
 				$this->dbh->delete($this->table,$id);
 				$created = date('Y-m-d H:i:s');
-				$this->dbh->insert($this->table,array("id"=>$id,"parent_id"=>$parent_id,"filename"=>$filename,"width"=>$width,"height"=>$height,"type"=>$type,"account_id"=>$req['account_id'],"created"=>$created));
+				$this->dbh->insert($this->table,array("id"=>$id,"parent_id"=>$parent_id,"filename"=>$filename,"width"=>$width,"height"=>$height,"type"=>$type,"user_id"=>$req['user_id'],"created"=>$created));
 			}
 		} else {
 			$param = $req['post'];

@@ -1814,7 +1814,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 	#
 	# *   $indent is the number of space to be ignored when checking for code 
 	#     blocks. This is important because if we don't take the indent into 
-	#     account, something like this (which looks right) won't work as expected:
+	#     user, something like this (which looks right) won't work as expected:
 	#
 	#     <div>
 	#         <div markdown="1">

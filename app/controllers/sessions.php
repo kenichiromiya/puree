@@ -8,7 +8,7 @@ class SessionsController extends CommonController
 
 	public function post() {
 		$var = $this->model->post($this->req);
-		if ($var['account']){
+		if ($var['user']){
 			if ($this->req['done']) {
 				header("Location:".urldecode($this->req['done']));
 			} else {

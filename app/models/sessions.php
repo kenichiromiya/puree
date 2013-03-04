@@ -3,7 +3,7 @@
 class SessionsModel extends Model {
         function __construct() {
                 parent::__construct();
-		$this->accountstable = TABLE_PREFIX."accounts";
+		$this->userstable = TABLE_PREFIX."users";
         }
 
 	public function get($req) {
@@ -11,7 +11,7 @@ class SessionsModel extends Model {
 			$session_id = $_COOKIE['session_id'];
 			$var = array();
 			if ($session_id){
-				$sql = "SELECT s.id,s.account_id,a.role FROM {$this->table} s,{$this->accountstable} a WHERE s.id = ? AND s.account_id = a.id";
+				$sql = "SELECT s.id,s.user_id,a.role FROM {$this->table} s,{$this->userstable} a WHERE s.id = ? AND s.user_id = a.id";
 				$var['session'] = $this->dbh->getRow($sql,array($session_id));
 			}
 			return $var;
@@ -23,11 +23,11 @@ class SessionsModel extends Model {
 	public function post($req) {
 		try {
 			$password = md5($req['password']);
-			$sql = "SELECT * FROM {$this->accountstable} WHERE id = ? and password = ? and code = ?";
-			$var['account'] = $this->dbh->getRow($sql,array($req['account_id'],$password,''));
+			$sql = "SELECT * FROM {$this->userstable} WHERE id = ? and password = ? and code = ?";
+			$var['user'] = $this->dbh->getRow($sql,array($req['user_id'],$password,''));
 
 			//print_r(array($req['id'],$password));
-			if ($var['account']){
+			if ($var['user']){
 				$this->delete($req);
 
 				$session_id = md5(uniqid(mt_rand(), true));
@@ -37,10 +37,10 @@ class SessionsModel extends Model {
 				} else {
 					setcookie("session_id",$session_id,0,'/');
 				}
-				//$sql = "INSERT INTO {$this->table} (id,account_id) VALUES(?,?)";
+				//$sql = "INSERT INTO {$this->table} (id,user_id) VALUES(?,?)";
 				//$sth = $this->dbh->prepare($sql);
 				//$sth->execute(array($session_id,$req['id']));
-				$this->dbh->insert($this->table,array("id"=>$session_id,"account_id"=>$req['account_id']));
+				$this->dbh->insert($this->table,array("id"=>$session_id,"user_id"=>$req['user_id']));
 				return $var;
 			} else {
 				return FALSE;

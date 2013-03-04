@@ -75,11 +75,11 @@ echo Markdown($text);
 <?php } ?>
 <?php include("pagination.php")?>
 </div><!--main-->
-<?php //if($session['account_id'] and preg_match("/\/$/",$req['id'])){ ?>
+<?php //if($session['user_id'] and preg_match("/\/$/",$req['id'])){ ?>
 
 <!--
 <div id="contents">
-<?php if($session['account_id']){ ?>
+<?php if($session['user_id']){ ?>
 <input id="multiple" type="file" multiple="multiple" />
 <br />
 

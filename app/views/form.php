@@ -7,9 +7,9 @@ if($req['view'] == "edit"){
     $method = "put";
 }
 ?>
-<input type="hidden" name="_method" value="<?=$method?>">
+<input type="hidden" name="_method" value="<?=$_method?>">
 <input type="hidden" name="type" value="page">
-<input type="hidden" name="account_id" value="<?=$session['account_id']?>">
+<input type="hidden" name="user_id" value="<?=$session['user_id']?>">
 <!--
 <label for="type"><?=_('Type')?></label>
 <select id="type" name="type">
@@ -22,7 +22,7 @@ if($req['view'] == "edit"){
 <?=BASE?><input id="id" type="text" name="id" value="<?=$id?>"/><br/>
 -->
 <label for="title"><?=_('Title')?></label>
-<input id="title" type="text" name="title" size="60" value="<?=$form['title']?>"/><br/>
+<input id="title" type="text" name="title" size="60" value="<?=$title?>"/><br/>
 <!--
 <label for="view"><?=_('View')?></label>
 <select id="view" name="view">
@@ -33,16 +33,16 @@ if($req['view'] == "edit"){
 <input id="filename" type="text" name="filename" value="<?=$form['filename']?>"/><br/>
 -->
 <label for="tags"><?=_('Tags')?></label>
-<input id="tags" type="text" name="tags" value="<?=$form['tags']?>"/><br/>
+<input id="tags" type="text" name="tags" value="<?=$tags?>"/><br/>
 <!--
 <label for="description"><?=_('Description')?></label>
 <textarea id="description" name="description" rows="10" cols="20">
-<?=$form['description']?>
+<?=$description?>
 </textarea><br/>
 -->
 <label for="text"><?=_('Text')?></label>
 <textarea id="text" name="text" rows="20" cols="100">
-<?=$form['text']?>
+<?=$text?>
 </textarea><br/>
 <label for="submit"><?=_('Submit')?></label>
 <input id="submit" type="submit" value="<?=_('Submit')?>"/><br/>

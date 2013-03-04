@@ -56,7 +56,7 @@ class sessionsTest extends PHPUnit_Framework_TestCase
 		/*
 		   $_COOKIE['session_id'] = $var['session_id'];
 		   $var = $this->object->get(array());
-		   $this->assertEquals("test",$var['session']['account_id']);
+		   $this->assertEquals("test",$var['session']['user_id']);
 		 */
 		// remove the following lines when you implement this test.
 		//$this->marktestincomplete(

@@ -1,7 +1,7 @@
 <?php
 class MyPDO extends PDO
 {
-//                                $sql = "INSERT INTO {$this->table} (id,account_id) VALUES(?,?)";
+//                                $sql = "INSERT INTO {$this->table} (id,user_id) VALUES(?,?)";
 //                                $sth = $this->dbh->prepare($sql);
 //                                $sth->execute(array($session_id,$req['id']));
 

@@ -16,8 +16,8 @@
 <form method="post" action="<?=BASE?>sessions/">
 <input type="hidden" name="_method" value="post">
 <input type="hidden" name="done" value="<?=$done?>">
-<label for="account_id"><?=_('Id')?></label>
-<input id="account_id" type="text" name="account_id" value="<?=$req['account_id']?>"/><br/>
+<label for="user_id"><?=_('Id')?></label>
+<input id="user_id" type="text" name="user_id" value="<?=$req['user_id']?>"/><br/>
 <label for="password"><?=_('Password')?></label>
 <input id="password" type="password" name="password" /><br/>
 <label for="persistent"><?=_('Persistent')?></label>

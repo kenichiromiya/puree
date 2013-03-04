@@ -14,8 +14,8 @@ if (!file_exists("upload/thumb/".$row['filename'])){
 ?>
 <a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['filename']?>"></a>
 </div>
-<?php if($session['account_id'] == $row['account_id']): ?>
-<?php //if($session['account_id'] and preg_match("/".$session['account_id']."/",$req['id'])){ ?>
+<?php if($session['user_id'] == $row['user_id']): ?>
+<?php //if($session['user_id'] and preg_match("/".$session['user_id']."/",$req['id'])){ ?>
 <form action="<?=BASE?><?=$row['id']?>" method="post">
 <input type="hidden" name="_method" value="delete">
 <input type="submit" value="<?=_('Delete')?>">

@@ -31,7 +31,7 @@ class indexTest extends PHPUnit_Framework_TestCase
     {
 	$url = "http://www26145ue.sakura.ne.jp/portfolio/";
 
-$array = array("id"=>"test/","account_id"=>"test","0"=>'@app/test/models/lena256.gif');
+$array = array("id"=>"test/","user_id"=>"test","0"=>'@app/test/models/lena256.gif');
 
 //$postfields = http_build_query($array);
 $return = curl_post($url,$array);
@@ -47,7 +47,7 @@ print_r($return);
 /*
 	$_COOKIE['session_id'] = $var['session_id'];
 	$var = $this->object->get(array());
-	$this->assertEquals("test",$var['session']['account_id']);
+	$this->assertEquals("test",$var['session']['user_id']);
 */
         // remove the following lines when you implement this test.
         //$this->marktestincomplete(
@@ -62,7 +62,7 @@ print_r($return);
     {
 	    $url = "http://www26145ue.sakura.ne.jp/portfolio/";
 
-	    $array = array("_method"=>"delete","id"=>"test/lena256","account_id"=>"test");
+	    $array = array("_method"=>"delete","id"=>"test/lena256","user_id"=>"test");
 	    $return = curl_post($url,$array);
 /*
 	$this->object->delete(array("id"=>"test"));

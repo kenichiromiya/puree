@@ -79,7 +79,7 @@ echo $markdown->parse($row['text']);
 <!--
 <input type="checkbox" name="id[]" value="<?=$row['id']?>">
 -->
-<?php //if($session['account_id'] and preg_match("/".$session['account_id']."/",$req['id'])){ ?>
+<?php //if($session['user_id'] and preg_match("/".$session['user_id']."/",$req['id'])){ ?>
 <form action="<?=BASE?><?=$row['id']?>" method="post">
 <input type="hidden" name="_method" value="delete">
 <input type="submit" value="<?=_('Delete')?>">
@@ -100,11 +100,11 @@ echo $markdown->parse($row['text']);
 -->
 <?php include("pagination.php")?>
 </div><!--main-->
-<?php //if($session['account_id'] and preg_match("/\/$/",$req['id'])){ ?>
+<?php //if($session['user_id'] and preg_match("/\/$/",$req['id'])){ ?>
 
 <!--
 <div id="contents">
-<?php if($session['account_id']){ ?>
+<?php if($session['user_id']){ ?>
 <input id="multiple" type="file" multiple="multiple" />
 <br />
 
