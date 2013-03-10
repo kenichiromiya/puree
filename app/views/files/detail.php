@@ -53,7 +53,11 @@ if($row['filename']):
         if ($width > 600) {
             $im->resizeImage(600, 0, imagick::FILTER_MITCHELL, 1);
         }
-        $im->writeImage("upload/large/".$row['filename']);
+        $large = "upload/large/".$row['filename'];
+        if (!is_dir(dirname($large))) {
+            mkdir(dirname($large),0777,true);
+        }
+        $im->writeImage($large);
         $im->destroy();
 
     }
