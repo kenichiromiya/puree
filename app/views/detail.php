@@ -105,6 +105,9 @@ foreach($files as $file) :
 $im = new Imagick();
 $im->readImage("upload/".$file['filename']);
 $im->cropThumbnailImage(200, 200);
+if (!is_dir(dirname("upload/thumb/".$file['filename']))) {
+    mkdir(dirname("upload/thumb/".$file['filename']),0777,true);
+}
 $im->writeImage("upload/thumb/".$file['filename']);
 $im->destroy();
 //if (!file_exists("upload/thumb/".$file['filename'])){
