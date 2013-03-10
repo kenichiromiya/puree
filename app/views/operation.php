@@ -1,6 +1,6 @@
 <?php if($session['role'] == "admin" or $row['user_id'] == $session['user_id']): ?>
 <div class="operation">
-<form class="ope" action="<?=BASE?>" method="get">
+<form class="ope" action="<?=BASE?><?=$row['id']?>" method="get">
 <input type="hidden" name="view" value="add">
 <input type="submit" value="<?=_('Add')?>">
 </form>
