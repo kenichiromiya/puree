@@ -82,7 +82,7 @@ echo $wiki->transform($row['text'], 'xhtml');
 <button onclick='location.href="<?=BASE?><?php echo preg_replace("#[^/]+$#","",$id)?>"+$("#location").val()+"?view=edit"'><?=_('Add')?></button>
 -->
 <?php } ?>
-
+<?php include("dir.php")?>
 <div id="items" >
 <?php
 /*

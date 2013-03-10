@@ -82,6 +82,22 @@ class PagesModel extends Model {
             array_push($values,$req['id']);
             $var['rows'] = $this->dbh->getAll($sql,$values);
  */
+            $sql = "SELECT SQL_CALC_FOUND_ROWS T1.*,T2.filename FROM {$this->table} T1 ,{$this->files_table} T2 ";
+            $values = array();
+            //$sql .= "WHERE id != ? AND id LIKE ? ";
+            $sql .= "WHERE T1.id REGEXP ? AND T2.parent_id = T1.id ";
+            $sql .= "GROUP BY T1.id ";
+            $sql .= "ORDER BY T1.createtime DESC ";
+            if ($req['page']) {
+                $start = ($req['page']-1) * PER_PAGE;
+                $sql .= "LIMIT ".$start.",".PER_PAGE;
+            } else {
+                $sql .= "LIMIT ".PER_PAGE;
+            }
+            array_push($values,"^".$req['id']."/");
+            $var['rows'] = $this->dbh->getAll($sql,$values);
+            $var['count'] = $this->dbh->rowCount();
+
             $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM {$this->table} ";
             //$sql .= "WHERE id != ? AND id LIKE ? ";
             $sql .= "ORDER BY createtime DESC ";
