@@ -23,14 +23,26 @@ if(is_file($preview)) :?>
 <a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?><?=$preview?>"></a>
 <?php else :?>
 <?php
-$files = array_diff( scandir("upload/thumb/".$row['id']), array(".", "..") );
+$files = array_diff( scandir("upload/".$row['id']), array(".", "..") );
 $images = array();
 foreach($files as $file){
     if(preg_match("/jpg|jpeg/",$file)){
-        array_push($images,"upload/thumb/".$row['id']."/".$file);
+        array_push($images,"upload/".$row['id']."/".$file);
     }
 }
 if (count($images)){
+
+    $filename = $images[0];
+    $im = new Imagick();
+    $im->readImage($filename);
+    $im->cropThumbnailImage(200, 200);
+    if (!is_dir(dirname($preview))) {
+        mkdir(dirname($preview),0777,true);
+    }
+    $im->writeImage($preview);
+    $im->destroy();
+
+/*
     //$imgBase = new Imagick("images/puree_empty.png");
     $imgBase = new Imagick();
     $imgBase->newImage(200, 200, new ImagickPixel('white'));
@@ -49,7 +61,7 @@ if (count($images)){
         }
     }
     $imgBase->writeImages($preview,TRUE);
-
+*/
 ?>
 <a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?><?=$preview?>"></a>
 <?php

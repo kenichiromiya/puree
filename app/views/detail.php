@@ -82,7 +82,6 @@ echo $wiki->transform($row['text'], 'xhtml');
 <button onclick='location.href="<?=BASE?><?php echo preg_replace("#[^/]+$#","",$id)?>"+$("#location").val()+"?view=edit"'><?=_('Add')?></button>
 -->
 <?php } ?>
-<?php include("dir.php")?>
 <div id="items" >
 <?php
 /*
@@ -95,11 +94,42 @@ foreach($page['rows'] as $row) :
 <?php
 foreach($files as $file) :
 ?>
+<?php
+if($file['filename']):
+?>
+<?php
+    if (!file_exists("upload/large/".$file['filename'])){
+        $im = new Imagick();
+        $im->readImage("upload/".$file['filename']);
+        $width = $im->getImageWidth();
+        if ($width > 600) {
+            $im->resizeImage(600, 0, imagick::FILTER_MITCHELL, 1);
+        }
+        $large = "upload/large/".$file['filename'];
+        if (!is_dir(dirname($large))) {
+            mkdir(dirname($large),0777,true);
+        }
+        $im->writeImage($large);
+        $im->destroy();
+
+    }
+//$image = new Image();
+//$image->resize("upload/large/".$filename,"upload/".$filename,900,900);
+?>
+<div class="image">
+<a href="<?=BASE?>upload/<?=$file['filename']?>"><img src="<?=BASE?>upload/large/<?=$file['filename']?>"></a>
+</div><!--image-->
+<?php
+endif;
+?>
+<?php /*
 <div class="item">
 <div class="thumb">
 <?php if($file['title']){ ?>
 <p><?=$file['title']?></p>
 <?php } ?>
+
+
 <?php if($file['filename']) :?>
 <?php
 $im = new Imagick();
@@ -111,10 +141,6 @@ if (!is_dir(dirname($thumb))) {
 }
 $im->writeImage($thumb);
 $im->destroy();
-//if (!file_exists("upload/thumb/".$file['filename'])){
-	//$image = new Image();
-	//$image->resize("upload/thumb/".$file['filename'],"upload/".$file['filename'],200,300);
-//}
 
 ?>
 <a href="<?=BASE?>files/<?=$file['id']?>"><img src="<?=BASE?>upload/thumb/<?=$file['filename']?>" ></a>
@@ -132,6 +158,7 @@ $im->destroy();
 <?php endif; ?>
 </div><!--thumb-->
 </div><!--item-->
+*/ ?>
 <?php endforeach; ?>
 <!--
 <input type="submit" name="_method" value="delete">
@@ -139,6 +166,7 @@ $im->destroy();
 </form>
 -->
 </div><!--items-->
+<?php include("dir.php")?>
 <!--
 <div id="page-nav">
 	<a href="?page=<?=$next?>"><?=_('Next')?></a>
