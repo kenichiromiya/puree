@@ -1,0 +1,16 @@
+#main {
+    text-align:left;
+    margin-right:auto;
+    margin-left:auto;
+    width:400px;
+}
+form label {
+    display: block;
+    width: 100px;
+    float: left;
+    margin-bottom: 10px;
+    text-align: left;
+    padding-right: 15px;
+}
+br { clear: left; }
+~

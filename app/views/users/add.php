@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <title><?=$config['title']?></title>
 <link rel="stylesheet" type="text/css" href="<?=BASE?>css/style.css"/>
-<link rel="stylesheet" type="text/css" href="<?=BASE?>css/users.css"/>
+<link rel="stylesheet" type="text/css" href="<?=BASE?>css/users/index.css"/>
 <?=$head?>
 </head>
 <body>
@@ -15,18 +15,14 @@
 ?>
 <div id="container">
 <div id="main">
-<form action="<?=$base?>users/?view=send" method="post">
-<input type="hidden" name="_method" value="put">
+<form action="<?=$base?>users/?view=add" method="post">
+<input type="hidden" name="_method" value="post">
 <label for="id"><?=_('Username')?></label>
-<?php if ($id) { ?>
-<input type="text" id="id" name="id" size="20" disabled="disabled" value="<?=$id?>"/><br/>
-<?php } else { ?>
-<input type="text" id="id" name="id" size="20" value=""/><?=$errors['id']?><br/>
-<?php }?>
+<input type="text" id="id" name="id" size="20" value="<?=$row['id']?>"/><?=$errors['id']?><br/>
 <label for="password"><?=_('Password')?></label>
 <input id="password" type="password" name="password" /><?=$errors['password']?><br/>
 <label for="email"><?=_('Email')?></label>
-<input id="email" type="text" name="email" value="<?=$email?>"/><?=$errors['email']?><br/>
+<input id="email" type="text" name="email" value="<?=$row['email']?>"/><?=$errors['email']?><br/>
 <label for="submit"><?=_('Submit')?></label>
 <input id="submit" type="submit" value="<?=_('Submit')?>"/><br/><br/>
 </form>

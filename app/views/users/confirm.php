@@ -14,10 +14,9 @@
 <div id="container">
 <div id="main">
 <?=_('User confirmation')?>
-<form action="<?=BASE?>users/?view=complete" method="post">
+<form action="<?=BASE?>users/<?=$req['id']?>?view=complete" method="post">
 <input type="hidden" name="_method" value="put">
-<input type="hidden" name="id" value="<?=$id?>">
-<input type="hidden" name="code" value="<?=$code?>">
+<input type="hidden" name="code" value="<?=$req['code']?>">
 <!--<label for="submit"><?=_('User confirmation')?></label>-->
 <input id="submit" type="submit" value="<?=_('Submit')?>"/>
 </form>

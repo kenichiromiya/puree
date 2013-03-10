@@ -1,10 +1,9 @@
 <form action="<?=BASE?><?=$req['id']?>" method="post">
 <?php 
-if($req['view'] == "add"){
-    $method = "post";
-}
-if($req['view'] == "edit"){
-    $method = "put";
+if($_method == "put"){
+    $value['title'] = $row['title'];
+    $value['tags'] = $row['tags'];
+    $value['text'] = $row['text'];
 }
 ?>
 <input type="hidden" name="_method" value="<?=$_method?>">
@@ -22,7 +21,7 @@ if($req['view'] == "edit"){
 <?=BASE?><input id="id" type="text" name="id" value="<?=$id?>"/><br/>
 -->
 <label for="title"><?=_('Title')?></label>
-<input id="title" type="text" name="title" size="60" value="<?=$title?>"/><br/>
+<input id="title" type="text" name="title" size="60" value="<?=$value['title']?>"/><br/>
 <!--
 <label for="view"><?=_('View')?></label>
 <select id="view" name="view">
@@ -33,7 +32,7 @@ if($req['view'] == "edit"){
 <input id="filename" type="text" name="filename" value="<?=$form['filename']?>"/><br/>
 -->
 <label for="tags"><?=_('Tags')?></label>
-<input id="tags" type="text" name="tags" value="<?=$tags?>"/><br/>
+<input id="tags" type="text" name="tags" value="<?=$values['tags']?>"/><br/>
 <!--
 <label for="description"><?=_('Description')?></label>
 <textarea id="description" name="description" rows="10" cols="20">
@@ -42,7 +41,7 @@ if($req['view'] == "edit"){
 -->
 <label for="text"><?=_('Text')?></label>
 <textarea id="text" name="text" rows="20" cols="100">
-<?=$text?>
+<?=$value['text']?>
 </textarea><br/>
 <label for="submit"><?=_('Submit')?></label>
 <input id="submit" type="submit" value="<?=_('Submit')?>"/><br/>

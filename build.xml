@@ -12,7 +12,7 @@
     <formatter todir="build/logs" type="xml"/>
     <batchtest>
       <fileset dir=".">
-        <include name="*/*/*/*Test.php"/>
+        <include name="*/*/*Test.php"/>
       </fileset>
     </batchtest>
   </phpunit>

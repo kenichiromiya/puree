@@ -24,20 +24,20 @@ if (!file_exists("upload/users/large/<?=$icon?>")){
 }
 */
 ?>
-<img src="<?=BASE?>upload/users/large/<?=$icon?>">
-<h1><?=$id?></h1>
-<a href="<?=$url?>"><?=$url?></a>
+<img src="<?=BASE?>upload/users/large/<?=$row['icon']?>">
+<h1><?=$row['id']?></h1>
+<a href="<?=$row['url']?>"><?=$row['url']?></a>
 <p>
-<?=$profile?>
+<?=$row['profile']?>
 </p>
 </div><!--user-->
-<?php if($session['user_id'] == $id){ ?>
+<?php if($session['user_id'] == $row['id']){ ?>
 
-<form action="<?=BASE?>users/<?=$id?>" method="post" enctype="multipart/form-data">
+<form action="<?=BASE?>users/<?=$row['id']?>" method="post" enctype="multipart/form-data">
 <input type="hidden" name="_method" value="put">
 <label for="id"><?=_('Username')?></label>
-<?php if ($id) { ?>
-<input type="text" id="id" name="id" size="20" disabled="disabled" value="<?=$id?>"/><br/>
+<?php if ($row['id']) { ?>
+<input type="text" id="id" name="id" size="20" disabled="disabled" value="<?=$row['id']?>"/><br/>
 <?php } else { ?>
 <input type="text" id="id" name="id" size="20" value=""/><br/>
 <?php }?>
@@ -46,17 +46,17 @@ if (!file_exists("upload/users/large/<?=$icon?>")){
 <input id="password" type="password" name="password" /><br/>
 -->
 <label for="email"><?=_('Email')?></label>
-<input id="email" type="text" name="email" value="<?=$email?>"/><br/>
+<input id="email" type="text" name="email" value="<?=$row['email']?>"/><br/>
 <label for="role"><?=_('Role')?></label>
 <select id="role" name="role">
-<!--option value="admin"<?php if($role == 'admin') { echo 'selected=""'; }?>>admin</option-->
-<option value="user"<?php if($role == 'user') { echo 'selected=""'; }?>>user</option>
+<!--option value="admin"<?php if($row['role'] == 'admin') { echo 'selected=""'; }?>>admin</option-->
+<option value="user"<?php if($row['role'] == 'user') { echo 'selected=""'; }?>>user</option>
 </select><br/>
 <label for="url"><?=_('URL')?></label>
-<input id="url" type="text" name="url" value="<?=$url?>"/><br/>
+<input id="url" type="text" name="url" value="<?=$row['url']?>"/><br/>
 <label for="profile"><?=_('Profile')?></label>
 <textarea id="profile" name="profile">
-<?=$profile?>
+<?=$row['profile']?>
 </textarea><br/>
 <label for="icon"><?=_('Icon')?></label>
 <input id="icon" type="file" name="icon" value=""/><br/>

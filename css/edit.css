@@ -1,0 +1,49 @@
+#main {
+    width:650px;
+    margin-bottom:10px; /*上下の間隔をあける*/
+    text-align:left;
+    float:left;
+}
+#sub {
+    width:200px;
+    margin-bottom:10px; /*上下の間隔をあける*/
+    text-align:left;
+    float:left;
+}
+
+ul {
+    padding-left: 5px;
+}
+li {
+    /*padding: 0;
+    /*list-style:none; /*リストの●を消す*/
+    list-style:none;
+}
+
+#text {
+    text-align:left;
+}
+#image {
+    text-align:center;
+}
+#twitter {
+    text-align:left;
+}
+form label {
+    display: block;
+    width: 100px;
+    float: left;
+    margin-bottom: 10px;
+    text-align: left;
+    padding-right: 15px;
+}
+
+textarea {
+    width:95%;
+    height:300px;
+}
+
+.image {
+        width:100%;
+        text-align:center;
+}

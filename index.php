@@ -4,21 +4,6 @@ if ($_POST['_method']) {
     $_SERVER["REQUEST_METHOD"] = strtoupper($_POST['_method']);
     unset($_POST['_method']);
 }
-/*
-if ($_POST['put']){
-	$_SERVER["REQUEST_METHOD"] = "PUT";
-}
-if ($_POST['delete']){
-	$_SERVER["REQUEST_METHOD"] = "DELETE";
-}
-*/
-/*
-foreach ($_GET as $key => $value) {
-	if(preg_match("/id$/",$key)) {
-		$_POST[$key] = $value;
-	}
-}
-*/
 include_once("define.php");
 include_once(PUREE_DIR."system/autoload.php");
 include_once(PUREE_DIR."system/mypdo.php");

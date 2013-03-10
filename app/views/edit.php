@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <title><?php echo TITLE; ?> - <?=$title?></title>
 <link rel="stylesheet" type="text/css" href="<?=BASE?>css/style.css"/>
-<link rel="stylesheet" type="text/css" href="<?=BASE?>css/detail.css"/>
+<link rel="stylesheet" type="text/css" href="<?=BASE?>css/edit.css"/>
 <script type="text/javascript" src="<?=BASE?>js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="<?=BASE?>js/javascript.js"></script>
 </head>
@@ -17,8 +17,8 @@
 <div id="container">
 <div id="main">
 <?php
-$_method = "post";
-if($session['role'] == "admin" or $session['user_id'] == $user_id or $count == 0){
+$_method = "put";
+if($session['user_id'] or $session['user_id'] == $row['user_id']){
 include("form.php");
 } ?>
 <!--
@@ -28,6 +28,16 @@ include("form.php");
 </form>
 -->
 </div><!--main-->
+<div id="sub">
+<h1>ページ一覧</h1>
+<ul>
+<?php
+foreach($rows as $row) :
+?>
+<li><a href="<?=BASE?><?=$row['id']?>"><?=$row['title']?></a></li>
+<?php endforeach; ?>
+</ul>
+</div><!--sub-->
 </div><!--container-->
 </div><!--wrapper-->
 

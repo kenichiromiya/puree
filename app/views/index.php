@@ -24,42 +24,30 @@ include_once "app/functions/markdown.php";
 
 <div id="container">
 <div id="main">
-<?php if($id5):?>
-<a href="<?=BASE?><?=$id5?>"><?=$title5?></a> &gt;
-<?php endif;?>
-<?php if($id4):?>
-<a href="<?=BASE?><?=$id4?>"><?=$title4?></a> &gt;
-<?php endif;?>
-<?php if($id3):?>
-<a href="<?=BASE?><?=$id3?>"><?=$title3?></a> &gt;
-<?php endif;?>
-<?php if($id2):?>
-<a href="<?=BASE?><?=$id2?>"><?=$title2?></a> &gt;
-<?php endif;?>
-<?php if($id1):?>
-<a href="<?=BASE?><?=$id1?>"><?=$title1?></a>
-<?php endif;?>
+<div id="breadcrumbs">
+<a href="<?=BASE?>"><?=_('Top')?></a>
+</div>
+<?php include("operation.php");?>
 <h1 class="title">
-<?=$title?>
+<?=$row['title']?>
 </h1>
-<?php
-if($filename):
-        //if (!file_exists("upload/large/".$filename)){
-                $image = new Image();
-                $image->imageresize("upload/large/".$filename,"upload/".$filename,900,900);
-        //}
-?>
-<div class="image">
-<a href="<?=BASE?>upload/<?=$filename?>"><img src="<?=BASE?>upload/large/<?=$filename?>"></a>
-</div><!--image-->
-<?php
-endif;
-?>
 <div id="text">
 <?php
-echo Markdown($text);
+//echo Markdown($text);
 //$markdown = new Markdown();
 //echo $markdown->parse($row['text']);
+?>
+<?php
+require_once "Text/Wiki/Mediawiki.php";
+
+$wiki=new Text_Wiki_Mediawiki();
+
+//$wiki->setRenderConf('Xhtml', 'Wikilink', 'new_url', BASE.$req['id'].'/%s');
+$wiki->setRenderConf('Xhtml', 'Wikilink', 'view_url', BASE.$req['id'].'%s');
+$wiki->setRenderConf('Xhtml', 'Wikilink', 'new_url', BASE.$req['id'].'%s');
+$wiki->setRenderConf('Xhtml', 'Wikilink', 'new_text', '');
+$wiki->setFormatConf('Xhtml','translate',HTML_SPECIALCHARS);
+echo $wiki->transform($row['text'], 'xhtml');
 ?>
 </div><!--text-->
 <div id="twitter">
@@ -77,16 +65,65 @@ echo Markdown($text);
 <?php
 foreach($rows as $row) :
 ?>
+<?php if($row['filename']) :?>
 <div class="item">
 <div class="thumb">
 <?php if($row['title']){ ?>
 <p><?=$row['title']?></p>
 <?php } ?>
-<?php if($row['filename']) :?>
+
+<!---
 <a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['filename']?>" ></a>
+-->
+<!--a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/docu_txt.png" ></a-->
+
+<?php
+$preview = "upload/preview/".$row['id'].".jpg";
+if (!is_dir(dirname($preview))) {
+    mkdir(dirname($preview),0777,true);
+}
+if(is_file($preview)) :?>
+<a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?><?=$preview?>"></a>
 <?php else :?>
-<a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/docu_txt.png" ></a>
+<?php
+$files = array_diff( scandir("upload/thumb/".$row['id']), array(".", "..") );
+$images = array();
+foreach($files as $file){
+    if(preg_match("/jpg|jpeg/",$file)){
+        array_push($images,"upload/thumb/".$row['id']."/".$file);
+    }
+}
+if (count($images)){
+    //$imgBase = new Imagick("images/puree_empty.png");
+    $imgBase = new Imagick();
+    $imgBase->newImage(200, 200, new ImagickPixel('white'));
+    $imgBase->setImageFormat('jpg');
+    for ($i=0;$i<2;$i++) {
+        for ($j=0;$j<2;$j++) {
+            $filename = $images[$i*2+$j];
+            //$imgFrame = new Imagick($filename);
+            //$imgFrame = new Imagick("upload/thumb/02036/24a4339e-s.jpg");
+            if ($filename) {
+                $imgFrame = new Imagick($filename);
+                //$imgFrame = new Imagick("upload/thumb/02036/24a4339e-s.jpg");
+                $imgFrame->resizeImage(94, 94, Imagick::FILTER_POINT, 1); 
+                $imgBase->compositeImage($imgFrame, $imgFrame->getImageCompose(), $j*98+4, $i*98+4);
+            }
+        }
+    }
+    $imgBase->writeImages($preview,TRUE);
+
+?>
+<a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?><?=$preview?>"></a>
+<?php
+} else {
+?>
+<a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/puree_empty.png" ></a>
+<?php
+}
+?>
 <?php endif; ?>
+
 <?php if($session['role'] == "admin" or $row['user_id'] == $session['user_id']): ?>
 <!--
 <input type="checkbox" name="id[]" value="<?=$row['id']?>">
@@ -99,6 +136,7 @@ foreach($rows as $row) :
 <?php endif; ?>
 </div><!--thumb-->
 </div><!--item-->
+<?php endif; ?>
 <?php endforeach; ?>
 </div><!--items-->
 <!--
@@ -108,6 +146,16 @@ foreach($rows as $row) :
 -->
 <?php include("pagination.php")?>
 </div><!--main-->
+<div id="sub">
+<h1>ページ一覧</h1>
+<ul>
+<?php
+foreach($pages as $page) :
+?>
+<li><a href="<?=BASE?><?=$page['id']?>"><?=$page['title']?></a></li>
+<?php endforeach; ?>
+</ul>
+</div><!--sub-->
 <?php //if($session['user_id'] and preg_match("/\/$/",$req['id'])){ ?>
 
 <!--
@@ -126,7 +174,7 @@ foreach($rows as $row) :
 </body>
 </html>
 <?php
-function image($var)
+function is_image($var)
 {
         if(preg_match("/jpg|jpeg/",$var)){
                 return true;

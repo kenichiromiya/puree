@@ -1,24 +1,83 @@
 <?php
 class Image {
 
-        public function __construct()
-        {
+    public function __construct()
+    {
+    }
+
+    public function getresampledimagesize($filename,$max_width = '',$max_height = '') {
+        list($width, $height,$imagetype) = getimagesize($filename);
+
+        $ratio = $width/$height;
+
+        if ($ratio > 1) {
+            $new_width = $max_width;
+            $new_height = $max_height/$ratio;
+        } else {
+            $new_width = $max_width*$ratio;
+            $new_height = $max_height;
         }
+        return array($new_width,$new_height);
+    } 
 
-	public function getresampledimagesize($filename,$max_width = '',$max_height = '') {
-		list($width, $height,$imagetype) = getimagesize($filename);
+    public function concat($newfilename,$images = array()) {
+        $matrix = "2x2";
+        $base = ImageCreateTrueColor(200, 300);
+        $white = imagecolorallocate($base, 255, 255, 255);
+        imagefill($base, 0, 0, $white);
+   
+        for ($i=0;$i<2;$i++) {
+            for ($j=0;$j<2;$j++) {
+                $filename = $images[$i*2+$j];
+                $max_width = 100;
+                $max_height = 150;
+                list($width, $height,$imagetype) = getimagesize($filename);
+                $new_width = $width;
+                $new_height = $height;
 
-		$ratio = $width/$height;
+                if($new_width > $max_width) {
+                    $new_height *= $max_width / $new_width;
+                    $new_width = $max_width;
+                }
 
-		if ($ratio > 1) {
-			$new_width = $max_width;
-			$new_height = $max_height/$ratio;
-		} else {
-			$new_width = $max_width*$ratio;
-			$new_height = $max_height;
+                if($new_height > $max_height) {
+                    $new_width *= $max_height / $new_height;
+                    $new_height = $max_height;
+                }
+
+                // 再サンプル
+                $image_p = imagecreatetruecolor($new_width, $new_height);
+                switch ($imagetype)
+                {
+                case 1:
+                    $image = imagecreatefromgif($filename);
+                    break;
+                case 2:
+                    $image = imagecreatefromjpeg($filename);
+                    break;
+                case 3:
+                    $image = imagecreatefrompng($filename);
+                    break;
+                }
+                imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+                ImageCopy($base, $image_p, $j*$max_width, $i*$max_height+($max_height-$new_height)/2, 0, 0, $new_width, $new_height);
+                imagedestroy($image_p);
+            }
+        }
+		if (!is_dir(dirname($newfilename))) {
+			mkdir(dirname($newfilename),0777,true);
 		}
-		return array($new_width,$new_height);
-	} 
+		if ($format == "jpeg" or preg_match("/jpg|jpeg/i",$newfilename,$m)) {
+			imagejpeg($base, $newfilename,90);
+		}
+		if ($format == "gif" or preg_match("/gif/i",$newfilename,$m)) {
+			imagegif($base, $newfilename);
+		}
+		if ($format == "png" or preg_match("/png/i",$newfilename,$m)) {
+			imagepng($base, $newfilename);
+		}
+    }
+
 	public function resize($newfilename,$filename,$max_width = '',$max_height = '') {
 		// 長辺指定だったら、max_widthとmax_heightが同じ
 		// 新規サイズを取得します
@@ -77,79 +136,6 @@ class Image {
 
 	}
 
-	public function imageresize($newfilename,$filename,$max_width = '',$max_height = '',$format = '') {
-		// 長辺指定だったら、max_widthとmax_heightが同じ
-		// 新規サイズを取得します
-		list($width, $height,$imagetype) = getimagesize($filename);
-		$new_width = $width;
-		$new_height = $height;
-
-		$ratio = $width/$height;
-
-		// 両方指定されてたら元画像の長いほうを指定してリサイズ
-		if ($max_width && $max_height){
-			if ($ratio > 1) {
-				if ($width > $max_width) {
-					$new_width = $max_width;
-					$new_height = $max_width/$ratio;
-				}
-			} else {
-				if ($height > $max_height) {
-					$new_width = $max_height*$ratio;
-					$new_height = $max_height;
-				}
-			}
-		} elseif($max_width) {
-			if ($width > $max_width) {
-				$new_width = $max_width;
-				$new_height = $max_width/$ratio;
-			}
-		} elseif($max_height) {
-			if ($height > $max_height) {
-				$new_width = $max_height*$ratio;
-				$new_height = $max_height;
-			}
-		}
-
-		// 再サンプル
-		$image_p = imagecreatetruecolor($new_width, $new_height);
-		switch ($imagetype)
-		{
-		case 1:
-			$image = imagecreatefromgif($filename);
-			break;
-		case 2:
-			$image = imagecreatefromjpeg($filename);
-			break;
-		case 3:
-			$image = imagecreatefrompng($filename);
-			break;
-		}
-		imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-		//$matrix = array(array(-1, -1, -1), array(-1, 16, -1), array(-1, -1, -1));   
-		//imageconvolution($image_p, $matrix, 8, 0);   
-
-
-		// 出力
-		if (!is_dir(dirname($newfilename))) {
-			mkdir(dirname($newfilename));
-		}
-		if ($format == "jpeg" or preg_match("/jpg|jpeg/i",$newfilename,$m)) {
-			imagejpeg($image_p, $newfilename,90);
-			//imagejpeg($image_p, $newfilename, 95);
-		}
-		if ($format == "gif" or preg_match("/gif/i",$newfilename,$m)) {
-			imagegif($image_p, $newfilename);
-		}
-		if ($format == "png" or preg_match("/png/i",$newfilename,$m)) {
-			imagepng($image_p, $newfilename);
-		}
-
-		$img = imagecreatefromjpeg($newfilename);
-		$matrix = array(array(-1, -1, -1), array(-1, 16, -1), array(-1, -1, -1));
-		imageconvolution($img, $matrix, 8, 0);
-
-	}
 }
 ?>
 
@@ -184,56 +170,6 @@ function getresampledimagesize($filename,$max_width,$max_height) {
 	return array($new_width,$new_height);
 } 
 
-function imageresize($newfilename,$filename,$max_width,$max_height) {
-	// 新規サイズを取得します
-	list($width, $height,$imagetype) = getimagesize($filename);
-
-	$ratio = $width/$height;
-
-	if ($ratio > 1) {
-		$new_width = $max_width;
-		$new_height = $max_width/$ratio;
-	} else {
-		$new_width = $max_height*$ratio;
-		$new_height = $max_height;
-	}
-
-	//$new_width = $max_width;
-	//$new_height = $max_height/$ratio;
-
-	// 再サンプル
-	$image_p = imagecreatetruecolor($new_width, $new_height);
-	switch ($imagetype)
-	{
-		case 1:
-			$image = imagecreatefromgif($filename);
-			break;
-		case 2:
-			$image = imagecreatefromjpeg($filename);
-			break;
-		case 3:
-			$image = imagecreatefrompng($filename);
-			break;
-	}
-	imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-//$matrix = array(array(-1, -1, -1), array(-1, 16, -1), array(-1, -1, -1));   
-//imageconvolution($image_p, $matrix, 8, 0);   
-  
-
-// 出力
-	if (!is_dir(dirname($newfilename))) {
-		mkdir(dirname($newfilename));
-	}
-	if (preg_match("/jpg|jpeg/i",$newfilename,$m)) {
-		imagejpeg($image_p, $newfilename, 95);
-	}
-	if (preg_match("/gif/i",$newfilename,$m)) {
-		imagegif($image_p, $newfilename);
-	}
-	if (preg_match("/png/i",$newfilename,$m)) {
-		imagepng($image_p, $newfilename);
-	}
-}
 
 # PHP Calendar (version 2.3), written by Keith Devens
 # http://keithdevens.com/software/php_calendar

@@ -1,39 +1,70 @@
 #main {
-	width:700px;
-	margin-bottom:10px; /*上下の間隔をあける*/
-	float:left;
-	text-align:left;
+    width:650px;
+    margin-bottom:10px; /*上下の間隔をあける*/
+    text-align:left;
+    float:left;
 }
 #sub {
-	width:150px;
-	margin-bottom:10px; /*上下の間隔をあける*/
-	text-align:center;
-	float:left;
-}
-#text {
-	text-align:left;
-}
-#image {
-	text-align:center;
-}
-#twitter {
-	text-align:left;
-}
-form label {
-	display: block;
-	width: 100px;
-	float: left;
-	margin-bottom: 10px;
-	text-align: left;
-	padding-right: 15px;
+    width:200px;
+    margin-bottom:10px; /*上下の間隔をあける*/
+    text-align:left;
+    float:left;
 }
 
-textarea {
-	width:100%;
-	height:300px;
+ul {
+    padding-left: 5px;
+}
+li {
+    /*padding: 0;
+    /*list-style:none; /*リストの●を消す*/
+    list-style:none; 
+}
+.thumb {
+    position: relative;  /* 基点を設定 */
+    width: 200px;
+    height: 200px;
+    display:table-cell;
+    vertical-align:middle;
 }
 
-.image {
-        width:100%;
-        text-align:center;
+.thumb  img {
+    top: 0;
+    left: 0;
+    z-index: 1; /* 一番下に配置 */
+}
+
+.thumb p {
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    position: absolute;  /* 親要素を基点に配置 */
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 背景黒で透明度50% */
+    color: white;
+    z-index: 2;  /* 画像の上に配置 */
+    font-size: 100%;
+    text-align:left;
+}
+.thumb form {
+    position: absolute;  /* 親要素を基点に配置 */
+    top:0;
+}
+
+.icon {
+    width: 200px;
+    height: 200px;
+}
+
+.item {
+    border: 1px;
+    border-style:solid;
+    margin: 5px;
+    padding:0px;
+    width: 200px;
+    height: 200px;
+    float: left;
+    -moz-box-shadow: 3px 3px 3px #AAA;    /* firefox　*/
+    -webkit-box-shadow: 3px 3px 3px #AAA;  /* safari、chorme */
 }

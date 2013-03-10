@@ -25,44 +25,6 @@ include_once "app/functions/markdown.php";
 
 <div id="container">
 <div id="main">
-<?php if($id5):?>
-<a href="<?=BASE?><?=$id5?>"><?=$title5?></a> &gt;
-<?php endif;?>
-<?php if($id4):?>
-<a href="<?=BASE?><?=$id4?>"><?=$title4?></a> &gt;
-<?php endif;?>
-<?php if($id3):?>
-<a href="<?=BASE?><?=$id3?>"><?=$title3?></a> &gt;
-<?php endif;?>
-<?php if($id2):?>
-<a href="<?=BASE?><?=$id2?>"><?=$title2?></a> &gt;
-<?php endif;?>
-<?php if($id1):?>
-<a href="<?=BASE?><?=$id1?>"><?=$title1?></a>
-<?php endif;?>
-<h1 class="title">
-<?=$title?>
-</h1>
-<?php
-if($filename):
-        //if (!file_exists("upload/large/".$filename)){
-                $image = new Image();
-                $image->imageresize("upload/large/".$filename,"upload/".$filename,900,900);
-        //}
-?>
-<div class="image">
-<a href="<?=BASE?>upload/<?=$filename?>"><img src="<?=BASE?>upload/large/<?=$filename?>"></a>
-</div><!--image-->
-<?php
-endif;
-?>
-<div id="text">
-<?php
-echo Markdown($text);
-//$markdown = new Markdown();
-//echo $markdown->parse($row['text']);
-?>
-</div><!--text-->
 <div id="twitter">
 <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -86,13 +48,13 @@ if (!file_exists("upload/users/large/<?=$icon?>")){
 */
 ?>
 <div id="image">
-<img src="<?=BASE?>upload/users/large/<?=$icon?>">
+<img src="<?=BASE?>upload/users/large/<?=$row['icon']?>">
 </div>
 <div id="profile">
-<h1><?=$id?></h1>
-<a href="<?=$url?>"><?=$url?></a>
+<h1><?=$row['id']?></h1>
+<a href="<?=$row['url']?>"><?=$row['url']?></a>
 <p>
-<?=$profile?>
+<?=$row['profile']?>
 </p>
 </div>
 </div><!--user-->
@@ -103,28 +65,22 @@ if (!file_exists("upload/users/large/<?=$icon?>")){
 <?php
 foreach($rows as $row) :
 ?>
+<?php if($row['filename']) :?>
 <div class="item">
 <div class="thumb">
 <?php if($row['title']){ ?>
 <p><?=$row['title']?></p>
 <?php } ?>
-<?php if($row['filename']) :?>
+
 <a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['filename']?>" ></a>
-<?php else :?>
-<a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/docu_txt.png" ></a>
-<?php endif; ?>
-<?php if($editable): ?>
-<!--
-<input type="checkbox" name="id[]" value="<?=$row['id']?>">
--->
-<?php //if($session['user_id'] and preg_match("/".$session['user_id']."/",$req['id'])){ ?>
+
 <form action="<?=BASE?><?=$row['id']?>" method="post">
 <input type="hidden" name="_method" value="delete">
 <input type="submit" value="<?=_('Delete')?>">
 </form>
-<?php endif; ?>
 </div><!--thumb-->
 </div><!--item-->
+<?php endif; ?>
 <?php endforeach; ?>
 </div><!--items-->
 <!--
@@ -134,6 +90,16 @@ foreach($rows as $row) :
 -->
 <?php include("pagination.php")?>
 </div><!--main-->
+<div id="sub">
+<h1>ページ一覧</h1>
+<ul>
+<?php
+foreach($rows as $row) :
+?>
+<li><a href="<?=BASE?><?=$row['id']?>"><?=$row['title']?></a></li>
+<?php endforeach; ?>
+</ul>
+</div><!--sub-->
 <?php //if($session['user_id'] and preg_match("/\/$/",$req['id'])){ ?>
 
 <!--

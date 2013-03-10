@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <title><?=$config['title']?></title>
 <link rel="stylesheet" type="text/css" href="<?=BASE?>css/style.css"/>
-<link rel="stylesheet" type="text/css" href="<?=BASE?>css/index.css"/>
+<link rel="stylesheet" type="text/css" href="<?=BASE?>css/detail.css"/>
 <script type="text/javascript" src="<?=BASE?>js/jquery-1.7.1.min.js"></script>
 <!--script type="text/javascript" src="<?=BASE?>js/jquery.masonry.min.js"></script-->
 <!--<script type="text/javascript" src="<?=BASE?>js/jquery.infinitescroll.min.js"></script>-->
@@ -24,40 +24,31 @@ include_once "app/functions/markdown.php";
 
 <div id="container">
 <div id="main">
-<?php if($id5):?>
-<a href="<?=BASE?><?=$id5?>"><?=$title5?></a> &gt;
+<div id="breadcrumbs">
+<a href="<?=BASE?>"><?=_('Top')?></a> &gt;
+<?php if($breadcrumbs['id5']):?>
+<a href="<?=BASE?><?=$breadcrumbs['id5']?>"><?=$breadcrumbs['title5']?></a> &gt;
 <?php endif;?>
-<?php if($id4):?>
-<a href="<?=BASE?><?=$id4?>"><?=$title4?></a> &gt;
+<?php if($breadcrumbs['id4']):?>
+<a href="<?=BASE?><?=$breadcrumbs['id4']?>"><?=$breadcrumbs['title4']?></a> &gt;
 <?php endif;?>
-<?php if($id3):?>
-<a href="<?=BASE?><?=$id3?>"><?=$title3?></a> &gt;
+<?php if($breadcrumbs['id3']):?>
+<a href="<?=BASE?><?=$breadcrumbs['id3']?>"><?=$breadcrumbs['title3']?></a> &gt;
 <?php endif;?>
-<?php if($id2):?>
-<a href="<?=BASE?><?=$id2?>"><?=$title2?></a> &gt;
+<?php if($breadcrumbs['id2']):?>
+<a href="<?=BASE?><?=$breadcrumbs['id2']?>"><?=$breadcrumbs['title2']?></a> &gt;
 <?php endif;?>
-<?php if($id1):?>
-<a href="<?=BASE?><?=$id1?>"><?=$title1?></a>
+<?php if($breadcrumbs['id1']):?>
+<a href="<?=BASE?><?=$breadcrumbs['id1']?>"><?=$breadcrumbs['title1']?></a>
 <?php endif;?>
+</div>
+<?php include("operation.php");?>
 <h1 class="title">
-<?=$title?>
+<?=$row['title']?>
 </h1>
-<?php
-if($filename):
-        //if (!file_exists("upload/large/".$filename)){
-                $image = new Image();
-                $image->imageresize("upload/large/".$filename,"upload/".$filename,900,900);
-        //}
-?>
-<div class="image">
-<a href="<?=BASE?>upload/<?=$filename?>"><img src="<?=BASE?>upload/large/<?=$filename?>"></a>
-</div><!--image-->
-<?php
-endif;
-?>
 <div id="text">
 <?php
-echo Markdown($text);
+//echo Markdown($text);
 //$markdown = new Markdown();
 //echo $markdown->parse($row['text']);
 /*
@@ -76,7 +67,7 @@ $wiki->setRenderConf('Xhtml', 'Wikilink', 'view_url', BASE.$req['id'].'/%s');
 $wiki->setRenderConf('Xhtml', 'Wikilink', 'new_url', BASE.$req['id'].'/%s');
 $wiki->setRenderConf('Xhtml', 'Wikilink', 'new_text', '');
 $wiki->setFormatConf('Xhtml','translate',HTML_SPECIALCHARS);
-echo $wiki->transform($text, 'xhtml');
+echo $wiki->transform($row['text'], 'xhtml');
 
 ?>
 </div><!--text-->
@@ -102,49 +93,34 @@ foreach($page['rows'] as $row) :
 <form action="<?=BASE?>" method="post">
 -->
 <?php
-foreach($files as $row) :
+foreach($files as $file) :
 ?>
 <div class="item">
 <div class="thumb">
-<?php if($row['title']){ ?>
-<p><?=$row['title']?></p>
+<?php if($file['title']){ ?>
+<p><?=$file['title']?></p>
 <?php } ?>
-<?php if($row['filename']) :?>
+<?php if($file['filename']) :?>
 <?php
-/*
-if (!file_exists("upload/thumb/".$row['filename'])){
-	$image = new Image();
-	$image->resize("upload/thumb/".$row['filename'],"upload/".$row['filename'],200,300);
-}
-*/
+$im = new Imagick();
+$im->readImage("upload/".$file['filename']);
+$im->cropThumbnailImage(200, 200);
+$im->writeImage("upload/thumb/".$file['filename']);
+$im->destroy();
+//if (!file_exists("upload/thumb/".$file['filename'])){
+	//$image = new Image();
+	//$image->resize("upload/thumb/".$file['filename'],"upload/".$file['filename'],200,300);
+//}
 
 ?>
-<a href="<?=BASE?>files/<?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['filename']?>" ></a>
-<?php else :?>
-<?php 
-/*
-$images = array_diff( scandir("upload/thumb/".$row['id']), array(".", "..") );
-$images = array_filter($images,"image");
-$image = array_pop($images);
-*/
-if ($image){
-?>
-<a href="<?=BASE?><?=$row['id']?>"><img src="<?=BASE?>upload/thumb/<?=$row['id']?>/<?=$image?>"></a>
-<?php
-} else {
-?>
-<!--a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/folder_org_t256.png" --></a>
-<a href="<?=BASE?><?=$row['id']?>"><img class="icon" src="<?=BASE?>images/docu_txt.png" ></a>
-<?php
-}
-?>
+<a href="<?=BASE?>files/<?=$file['id']?>"><img src="<?=BASE?>upload/thumb/<?=$file['filename']?>" ></a>
 <?php endif; ?>
-<?php if($session['role'] == "admin" or $row['user_id'] == $session['user_id']): ?>
+<?php if($session['role'] == "admin" or $file['user_id'] == $session['user_id']): ?>
 <!--
-<input type="checkbox" name="id[]" value="<?=$row['id']?>">
+<input type="checkbox" name="id[]" value="<?=$file['id']?>">
 -->
 <?php //if($session['user_id'] and preg_match("/".$session['user_id']."/",$req['id'])){ ?>
-<form action="<?=BASE?>files/<?=$row['id']?>" method="post">
+<form action="<?=BASE?>files/<?=$file['id']?>" method="post">
 <input type="hidden" name="_method" value="delete">
 <input type="hidden" name="redirect" value="<?=BASE?><?=$req['id']?>">
 <input type="submit" value="<?=_('Delete')?>">
@@ -164,19 +140,25 @@ if ($image){
 	<a href="?page=<?=$next?>"><?=_('Next')?></a>
 </div>
 -->
+<?php if($session['role'] == "admin" or $row['user_id'] == $session['user_id']): ?>
 <form action="<?=BASE?>files/<?=$req['id']?>">
 <input type="hidden" name="redirect" value="<?=BASE?><?=$req['id']?>">
 <div id="drag" draggable="true">
 <?=_('Drag to add files')?>
 </div><!--drag-->
+<?php endif;?>
 </form>
-<?php include("pagination.php")?>
-<?php
-foreach($pages['rows'] as $row) :
-?>
-<a href="<?=BASE?><?=$row['id']?>"><?=$row['title']?></a>
-<?php endforeach; ?>
 </div><!--main-->
+<div id="sub">
+<h1>ページ一覧</h1>
+<ul>
+<?php
+foreach($pages as $page) :
+?>
+<li><a href="<?=BASE?><?=$page['id']?>"><?=$page['title']?></a></li>
+<?php endforeach; ?>
+</ul>
+</div><!--sub-->
 <?php //if($session['user_id'] and preg_match("/\/$/",$req['id'])){ ?>
 
 <!--
@@ -195,7 +177,7 @@ foreach($pages['rows'] as $row) :
 </body>
 </html>
 <?php
-function image($var)
+function isImage($var)
 {
         if(preg_match("/jpg|jpeg/",$var)){
                 return true;

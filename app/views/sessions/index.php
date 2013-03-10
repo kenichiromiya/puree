@@ -4,7 +4,7 @@
 <title>Session</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <link rel="stylesheet" type="text/css" href="<?=BASE?>css/style.css"/>
-<link rel="stylesheet" type="text/css" href="<?=BASE?>css/sessions.css"/>
+<link rel="stylesheet" type="text/css" href="<?=BASE?>css/sessions/index.css"/>
 </head>
 
 <body>

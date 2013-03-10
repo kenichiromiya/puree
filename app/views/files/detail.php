@@ -40,17 +40,28 @@ include_once "app/functions/markdown.php";
 <a href="<?=BASE?><?=$id1?>"><?=$title1?></a>
 <?php endif;?>
 <h1 class="title">
-<?=$title?>
+<?=$row['title']?>
 </h1>
 <?php
-if($filename):
-        //if (!file_exists("upload/large/".$filename)){
-                $image = new Image();
-                $image->imageresize("upload/large/".$filename,"upload/".$filename,900,900);
-        //}
+if($row['filename']):
+?>
+<?php
+    if (!file_exists("upload/large/".$row['filename'])){
+        $im = new Imagick();
+        $im->readImage("upload/".$row['filename']);
+        $width = $im->getImageWidth();
+        if ($width > 600) {
+            $im->resizeImage(600, 0, imagick::FILTER_MITCHELL, 1);
+        }
+        $im->writeImage("upload/large/".$row['filename']);
+        $im->destroy();
+
+    }
+//$image = new Image();
+//$image->resize("upload/large/".$filename,"upload/".$filename,900,900);
 ?>
 <div class="image">
-<a href="<?=BASE?>upload/<?=$filename?>"><img src="<?=BASE?>upload/large/<?=$filename?>"></a>
+<a href="<?=BASE?>upload/<?=$row['filename']?>"><img src="<?=BASE?>upload/large/<?=$row['filename']?>"></a>
 </div><!--image-->
 <?php
 endif;
@@ -73,7 +84,6 @@ echo Markdown($text);
 <button onclick='location.href="<?=BASE?><?php echo preg_replace("#[^/]+$#","",$id)?>"+$("#location").val()+"?view=edit"'><?=_('Add')?></button>
 -->
 <?php } ?>
-<?php include("pagination.php")?>
 </div><!--main-->
 <?php //if($session['user_id'] and preg_match("/\/$/",$req['id'])){ ?>
 

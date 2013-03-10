@@ -15,43 +15,13 @@ class CommonController extends Controller
     public function get() {
         $var = $this->model->get($this->req);
         $this->var = $this->var + $var;
-/*
-        if ($this->req['view']) {
-            $view = ".".$this->req['view'];
-        } elseif ($var['view']) {
-                        $view = ".".$var['view'];
-                } else  {
-            $view = "";
-        }
- */
-        /*
-        if (preg_match("#[^/]$#",$this->req['id'])) {
-            $file = "detail".$view.'.php';
-        } else {
-            $page = isset($this->req['page']) ? $this->req['page'] : 1;
-            $this->var['next'] = $page+1;
-            $file = "index".$view.'.php';
-        }
-         */
         $page = isset($this->req['page']) ? $this->req['page'] : 1;
         $this->var['next'] = $page+1;
-/*
-        $file = "index".$view.'.php';
-        if($this->req['controller']){
-            $file = $this->req['controller']."/".$file;
-        } else {
-            $file = $file;
-        }
- */
    
-        if ($var['view']) {
-            $this->template = $var['view'].".php";
+        // if page not exist
+        if($this->req['id'] and !$this->var['row']) {
+            $this->template = "edit.php";
         }
-/*
-        if (!isset($var['id'])){
-            $this->template = "add.php";
-        }
-*/
         $this->view = new View($this->template);
         $contents = $this->view->getcontents($this->var);
         echo $contents;
@@ -68,18 +38,18 @@ class CommonController extends Controller
                 header("Location:".BASE.$this->controller.$this->req['id']);
         }
 /*
-        public function delete() {
-		$this->model->delete($this->req);
-                header("Location:".BASE.$this->controller.dirname($this->req['id']));
-        }
-*/
-	// http://support.microsoft.com/kb/290197/ja
+    public function delete() {
+        $this->model->delete($this->req);
+        header("Location:".BASE.$this->controller.dirname($this->req['id']));
+    }
+ */
+        // http://support.microsoft.com/kb/290197/ja
 /*
-	public function move() {
-		$this->model->move($this->req);
+    public function move() {
+        $this->model->move($this->req);
                 header("Location:".BASE.$this->controller.$this->req['id']);
-	}
-*/
+    }
+ */
 
 }
 ?>
