@@ -51,7 +51,7 @@ class Controller
         if(isset($this->req['controller'])){
             $this->template = $this->req['controller']."/".$this->template;
         } else {
-            $this->template = DEFAULT_CLASS."/".$this->template;
+            $this->template = $this->template;
         }
         $this->template .= '.php';
 

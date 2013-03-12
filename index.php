@@ -4,7 +4,8 @@ if ($_POST['_method']) {
     $_SERVER["REQUEST_METHOD"] = strtoupper($_POST['_method']);
     unset($_POST['_method']);
 }
-include_once("define.php");
+define("PURE_DIR","/var/www/html/puree/");
+include_once(PURE_DIR."config.php");
 include_once(PURE_DIR."system/autoload.php");
 include_once(PURE_DIR."system/mypdo.php");
 include_once(PURE_DIR."system/db.php");
