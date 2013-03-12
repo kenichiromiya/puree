@@ -5,13 +5,13 @@ if ($_POST['_method']) {
     unset($_POST['_method']);
 }
 include_once("define.php");
-include_once(PUREE_DIR."system/autoload.php");
-include_once(PUREE_DIR."system/mypdo.php");
-include_once(PUREE_DIR."system/db.php");
+include_once(PURE_DIR."system/autoload.php");
+include_once(PURE_DIR."system/mypdo.php");
+include_once(PURE_DIR."system/db.php");
 //include_once("lang.php");
 //include_once("helper.php");
-include_once(PUREE_DIR."system/functions.php");
-include_once(PUREE_DIR."system/gettext.php");
+include_once(PURE_DIR."system/functions.php");
+include_once(PURE_DIR."system/gettext.php");
 //include_once("router.php");
 //$sanitizer = New Sanitizer();
 //$param = $sanitizer->sanitize();

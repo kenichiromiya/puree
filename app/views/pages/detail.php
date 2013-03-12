@@ -182,14 +182,7 @@ $im->destroy();
 </form>
 </div><!--main-->
 <div id="sub">
-<h1>ページ一覧</h1>
-<ul>
-<?php
-foreach($pages as $page) :
-?>
-<li><a href="<?=BASE?><?=$page['id']?>"><?=$page['title']?></a></li>
-<?php endforeach; ?>
-</ul>
+<?php include("list.php");?>
 </div><!--sub-->
 <?php //if($session['user_id'] and preg_match("/\/$/",$req['id'])){ ?>
 

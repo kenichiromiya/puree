@@ -11,8 +11,8 @@ php_flag short_open_tag On
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule (.*)$ $1 [L]
 
-    RewriteRule (pages|files|users|sessions)/(.+)$ index.php?controller=$1&id=$2 [QSA,L]
-    RewriteRule (pages|files|users|sessions)/$ index.php?controller=$1&id=$2 [QSA,L]
+    RewriteRule (index|pages|files|users|sessions)/(.+)$ index.php?controller=$1&id=$2 [QSA,L]
+    RewriteRule (index|pages|files|users|sessions)/$ index.php?controller=$1&id=$2 [QSA,L]
     RewriteRule (.+)/(.+)$ index.php?id=$1/$2 [QSA,L]
     RewriteRule (.+)/$ index.php?id=$1/ [QSA,L]
     RewriteRule (.+)$ index.php?id=$1 [QSA,L]

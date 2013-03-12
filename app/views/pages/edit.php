@@ -29,14 +29,7 @@ include("form.php");
 -->
 </div><!--main-->
 <div id="sub">
-<h1>ページ一覧</h1>
-<ul>
-<?php
-foreach($rows as $row) :
-?>
-<li><a href="<?=BASE?><?=$row['id']?>"><?=$row['title']?></a></li>
-<?php endforeach; ?>
-</ul>
+<?php include("list.php");?>
 </div><!--sub-->
 </div><!--container-->
 </div><!--wrapper-->

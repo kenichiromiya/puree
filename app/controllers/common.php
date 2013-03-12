@@ -27,16 +27,20 @@ class CommonController extends Controller
         echo $contents;
     }
 
-        public function put() {
-                $this->model->put($this->req);
-                header("Location:".BASE.$this->controller.$this->req['id']);
-                //header("Location:".$this->top.$this->req['controller']."/");
-        }
-        public function post() {
-                //$this->model->post($this->req['post']);
-                $this->model->post($this->req);
-                header("Location:".BASE.$this->controller.$this->req['id']);
-        }
+    public function put() {
+        //$this->model->post($this->req['post']);
+        // TODO $req['post']['ids']
+        $this->model->put(array_merge(array('user_id'=>$this->session['user_id']),$this->req));
+        header("Location:".BASE.$this->req['controller'].(isset($this->req['controller']) ? "/": "").$this->req['id']);
+        //print_r($this->req);
+    }
+    public function post() {
+        //$this->model->post($this->req['post']);
+        $this->model->post(array_merge(array('user_id'=>$this->session['user_id']),$this->req));
+        header("Location:".BASE.$this->req['controller'].(isset($this->req['controller']) ? "/": "").dirname($this->req['id']));
+        //print_r($this->req);
+    }
+
 /*
     public function delete() {
         $this->model->delete($this->req);
