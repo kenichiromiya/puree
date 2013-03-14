@@ -118,6 +118,13 @@ if($file['filename']):
 ?>
 <div class="image">
 <a href="<?=BASE?>upload/<?=$file['filename']?>"><img src="<?=BASE?>upload/large/<?=$file['filename']?>"></a>
+<?php if($session['role'] == "admin" or $file['user_id'] == $session['user_id']): ?>
+<form action="<?=BASE?>files/<?=$file['id']?>" method="post">
+<input type="hidden" name="_method" value="delete">
+<input type="hidden" name="redirect" value="<?=BASE?><?=$req['id']?>">
+<input type="submit" value="<?=_('Delete')?>">
+</form>
+<?php endif; ?>
 </div><!--image-->
 <?php
 endif;

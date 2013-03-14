@@ -68,3 +68,32 @@ li {
     -moz-box-shadow: 3px 3px 3px #AAA;    /* firefox　*/
     -webkit-box-shadow: 3px 3px 3px #AAA;  /* safari、chorme */
 }
+
+.image {
+    position: relative;  /* 基点を設定 */
+}
+
+.image  img {
+    top: 0;
+    left: 0;
+    z-index: 1; /* 一番下に配置 */
+}
+
+.image p {
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    position: absolute;  /* 親要素を基点に配置 */
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 背景黒で透明度50% */
+    color: white;
+    z-index: 2;  /* 画像の上に配置 */
+    font-size: 100%;
+    text-align:left;
+}
+.image form {
+    position: absolute;  /* 親要素を基点に配置 */
+    top:0;
+}
