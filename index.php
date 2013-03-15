@@ -6,16 +6,16 @@ if ($_POST['_method']) {
 }
 define("PURE_DIR","/var/www/html/puree/");
 include_once(PURE_DIR."config.php");
-include_once(PURE_DIR."system/autoload.php");
-include_once(PURE_DIR."system/mypdo.php");
-include_once(PURE_DIR."system/db.php");
+include_once(PURE_DIR."Pure/Autoload.php");
+include_once(PURE_DIR."Pure/MyPDO.php");
+include_once(PURE_DIR."Pure/DB.php");
 //include_once("lang.php");
 //include_once("helper.php");
-include_once(PURE_DIR."system/functions.php");
-include_once(PURE_DIR."system/gettext.php");
+include_once(PURE_DIR."Pure/functions.php");
+include_once(PURE_DIR."Pure/gettext.php");
 //include_once("router.php");
 //$sanitizer = New Sanitizer();
 //$param = $sanitizer->sanitize();
-$dispatcher = New Dispatcher();
+$dispatcher = new Pure\Dispatcher();
 $dispatcher->dispatch();
 ?>

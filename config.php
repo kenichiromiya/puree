@@ -13,5 +13,6 @@ define("TITLE","PUREE");
 define("LOGO","http://www26145ue.sakura.ne.jp/puree/images/puree.png");
 define("COPYRIGHT","Copyright (C) ".date("Y")." miyaa");
 define("PER_PAGE","3");
+define("DIRECTORY_SEPARATOR","/");
 //define("TABLE_PREFIX","test_");
 ?>
