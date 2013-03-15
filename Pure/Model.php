@@ -8,15 +8,11 @@ class Model
         $singleton = DB::singleton();
         $this->dbh = $singleton->dbh;
 
-        error_log("####");
         $classname = get_class($this);
-        error_log($classname);
         //$classname = get_class();
         //error_log($classname);
-        error_log("####");
         //preg_match("/(.*)Model/",$classname,$m);
         preg_match("/Puree\\\\(.*)\\\\Model/",$classname,$m);
-        error_log(print_r($m,TRUE));
         $this->modelsname = strtolower($m[1]);
         $this->table = TABLE_PREFIX.$this->modelsname;
     }

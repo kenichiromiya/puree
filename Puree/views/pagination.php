@@ -1,5 +1,5 @@
 <?php
-$pagination = new Pagination();
+$pagination = new \Pure\Pagination();
 $pagination = $pagination->getpagination(array("page"=>$req['page'],"per_page"=>PER_PAGE,"total"=>$count));
 echo "<div id=\"pagination\">";
 if($pagination['prev_page']){

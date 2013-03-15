@@ -17,7 +17,7 @@ function puree_autoloader($class_name) {
 
 function pure_autoloader($className)
 {
-    error_log($className);
+    //error_log($className);
     $className = ltrim($className, '\\');
     $fileName  = '';
     $namespace = '';
@@ -28,6 +28,9 @@ function pure_autoloader($className)
     }
     $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
-    require PURE_DIR.$fileName;
+    //require PURE_DIR.$fileName;
+    if(is_file($fileName)){
+    require $fileName;
+    }
 }
 ?>
