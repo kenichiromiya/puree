@@ -32,8 +32,7 @@ class View
         extract($data);
         ob_start();
         //include_once("functions.php");
-        set_include_path(get_include_path() . PATH_SEPARATOR . "Puree/views/");
-        include(PURE_DIR."Puree/views/".$this->template);
+        include("views/".$this->template);
         $contents = ob_get_contents();
         ob_end_clean();
         //chdir($cwd);

@@ -60,8 +60,7 @@ class Controller
 
     public function get() {
         $var = $this->model->get($this->req);
-        $file = $this->req['controller'].'.php';
-        $this->view = new \Pure\View($file);
+        $this->view = new \Pure\View($this->template);
         $contents = $this->view->getcontents($this->var);
         echo $contents;
     }
