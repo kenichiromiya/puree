@@ -5,14 +5,15 @@ class Controller
 {
 
     public function __construct() {
-        $singleton = Request::singleton();
-        $this->req = $singleton->req;
-        if (isset($this->req['controller'])){
+        //$singleton = Request::singleton();
+        $this->request = Request::singleton();
+        $this->req = $this->request->req;
+        if ($this->request->get('controller')){
             $this->controller = $this->req['controller']."/";
         } else {
             $this->controller = "";
         }
-        if (isset($this->req['controller'])) {
+        if ($this->request->get('controller')) {
             $modelname = "\\Puree\\".ucwords($this->req['controller'])."\\Model";
         } else {
             $modelname = "\\Puree\\".ucwords(DEFAULT_CLASS)."\\Model";

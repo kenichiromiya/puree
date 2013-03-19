@@ -3,12 +3,13 @@ namespace Pure;
 
 class Dispatcher {
     public function __construct() {
-        $singleton = Request::singleton();
-        $this->req = $singleton->req;
+        //$singleton = Request::singleton();
+        $this->request = Request::singleton();
+        $this->req = $this->request->req;
     }
 
     public function dispatch() {
-        if (isset($this->req['controller'])) {
+        if ($this->request->get('controller')) {
             $classname = "Puree\\".ucwords($this->req['controller']."\\Controller");
         } else {
             $classname = "Puree\\".ucwords(DEFAULT_CLASS)."\\Controller";

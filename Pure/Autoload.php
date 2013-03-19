@@ -16,8 +16,8 @@ function pure_autoloader($className)
     $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
     //require PURE_DIR.$fileName;
-    if(is_file($fileName)){
-    require $fileName;
-    }
+    //if(is_file($fileName)){
+    include $fileName;
+    //}
 }
 ?>
