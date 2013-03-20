@@ -36,7 +36,7 @@ class View
         //chdir("views");
         ob_start();
         //include_once("functions.php");
-        include("views/".$this->template);
+        include("app/views/".$this->template);
         $contents = ob_get_contents();
         ob_end_clean();
         //chdir($cwd);

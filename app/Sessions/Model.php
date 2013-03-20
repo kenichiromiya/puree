@@ -1,7 +1,7 @@
 <?php
-namespace Puree\Sessions;
+namespace Sessions;
 
-class Model extends \Puree\Common\Model {
+class Model extends \Common\Model {
     function __construct() {
         parent::__construct();
         $this->userstable = TABLE_PREFIX."users";

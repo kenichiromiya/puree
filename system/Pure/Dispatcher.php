@@ -10,9 +10,9 @@ class Dispatcher {
 
     public function dispatch() {
         if ($this->request->get('controller')) {
-            $classname = "Puree\\".ucwords($this->req['controller']."\\Controller");
+            $classname = "\\".ucwords($this->req['controller']."\\Controller");
         } else {
-            $classname = "Puree\\".ucwords(DEFAULT_CLASS)."\\Controller";
+            $classname = "\\".ucwords(DEFAULT_CLASS)."\\Controller";
         }
         $controller = new $classname();
 

@@ -1,7 +1,7 @@
 <?php
-namespace Puree\Users;
+namespace Users;
 
-class Model extends \Puree\Common\Model {
+class Model extends \Common\Model {
 
     public function __construct(){
         parent::__construct();

@@ -1,5 +1,5 @@
 <?php
-namespace Puree\Common;
+namespace Common;
 
 class Model extends \Pure\Model
 {
@@ -12,7 +12,7 @@ class Model extends \Pure\Model
         //$classname = get_class();
         //error_log($classname);
         //preg_match("/(.*)Model/",$classname,$m);
-        preg_match("/Puree\\\\(.*)\\\\Model/",$classname,$m);
+        preg_match("/(.*)\\\\Model/",$classname,$m);
         $this->modelsname = strtolower($m[1]);
         $this->table = TABLE_PREFIX.$this->modelsname;
     }

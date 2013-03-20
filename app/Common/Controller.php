@@ -1,5 +1,5 @@
 <?php
-namespace Puree\Common;
+namespace Common;
 
 class Controller extends \Pure\Controller
 {
@@ -7,7 +7,7 @@ class Controller extends \Pure\Controller
     public function __construct() {
         parent::__construct();
         $singleton = \Pure\Request::singleton();
-        $this->sessionsmodel = new \Puree\Sessions\Model();
+        $this->sessionsmodel = new \Sessions\Model();
         $var = $this->sessionsmodel->get($this->req);
         $this->session = $var['session'];
         $this->var['session'] = $var['session'];

@@ -6,7 +6,9 @@ if ($_POST['_method']) {
 }
 $cwd = getcwd();
 set_include_path(get_include_path() . PATH_SEPARATOR . $cwd);
-set_include_path(get_include_path() . PATH_SEPARATOR . $cwd."/views");
+set_include_path(get_include_path() . PATH_SEPARATOR . $cwd."/app");
+set_include_path(get_include_path() . PATH_SEPARATOR . $cwd."/system");
+set_include_path(get_include_path() . PATH_SEPARATOR . $cwd."/app/views");
 //set_include_path(get_include_path() . PATH_SEPARATOR . "/var/www/html/puree/views/");
 include_once("config.php");
 include_once("Pure/Autoload.php");

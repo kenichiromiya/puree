@@ -1,7 +1,7 @@
 <?php
-namespace Puree\Users;
+namespace Users;
 
-class Controller extends \Puree\Common\Controller
+class Controller extends \Common\Controller
 {
 
     public function __construct() {

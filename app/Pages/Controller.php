@@ -1,7 +1,7 @@
 <?php
-namespace Puree\Files;
+namespace Pages;
 
-class Controller extends \Puree\Common\Controller
+class Controller extends \Common\Controller
 {
     public function __construct() {
         parent::__construct();
