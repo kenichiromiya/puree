@@ -1,7 +1,7 @@
 <?php
 namespace Puree\Files;
 
-class Model extends \Pure\Model {
+class Model extends \Puree\Common\Model {
     public $error;
 
     public function __construct(){

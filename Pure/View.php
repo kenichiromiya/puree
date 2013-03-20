@@ -30,12 +30,17 @@ class View
     {
         global $_LANG;
         extract($data);
+        $cwd = getcwd();
+        //chdir("app/views");
+        //echo $cwd;
+        //chdir("views");
         ob_start();
         //include_once("functions.php");
         include("views/".$this->template);
         $contents = ob_get_contents();
         ob_end_clean();
         //chdir($cwd);
+        chdir($cwd);
         return $contents;
     }
 /*

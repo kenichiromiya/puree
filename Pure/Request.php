@@ -32,10 +32,10 @@ class Request
     }
 
     public function get($key) {
-        if (!isset($_GET['key'])) {
+        if (!isset($_GET[$key])) {
             return FALSE;
         } else {
-            return strip_tags($_GET['key']);
+            return strip_tags($_GET[$key]);
         }
     }
     public static function singleton()

@@ -1,7 +1,7 @@
 <?php
 namespace Puree\Pages;
 
-class Model extends \Pure\Model {
+class Model extends \Puree\Common\Model {
     public $error;
 
     public function __construct(){

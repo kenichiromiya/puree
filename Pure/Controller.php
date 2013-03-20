@@ -14,7 +14,7 @@ class Controller
             $this->controller = "";
         }
         if ($this->request->get('controller')) {
-            $modelname = "\\Puree\\".ucwords($this->req['controller'])."\\Model";
+            $modelname = "\\Puree\\".ucwords($this->request->get('controller'))."\\Model";
         } else {
             $modelname = "\\Puree\\".ucwords(DEFAULT_CLASS)."\\Model";
         }
