@@ -9,11 +9,17 @@ class Dispatcher {
     }
 
     public function dispatch() {
-        if ($this->request->get('controller')) {
-            $classname = "\\".ucwords($this->req['controller']."\\Controller");
+        if ($this->request->get('vendor')) {
+            $classname = "\\".ucwords($this->request->get('vendor'));
         } else {
-            $classname = "\\".ucwords(DEFAULT_CLASS)."\\Controller";
+            $classname = "";
         }
+        if ($this->request->get('controller')) {
+            $classname .= "\\".ucwords($this->request->get('controller'));
+        } else {
+            $classname .= "\\".ucwords(DEFAULT_CLASS);
+        }
+        $classname .= "\\Controller";
         $controller = new $classname();
 
         switch ($_SERVER["REQUEST_METHOD"]) {
