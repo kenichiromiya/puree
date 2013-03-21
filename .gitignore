@@ -1,5 +1,5 @@
-define.php
+app/config.php
 upload/
-build/
-dump.*
-messages.pot
+app/test/build/
+app/dump.*
+app/messages.pot

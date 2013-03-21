@@ -10,16 +10,16 @@ class Dispatcher {
 
     public function dispatch() {
         if ($this->request->get('vendor')) {
-            $classname = "\\".ucwords($this->request->get('vendor'));
+            $vendor = "\\".ucwords($this->request->get('vendor'));
         } else {
-            $classname = "";
+            $vendor = "";
         }
         if ($this->request->get('controller')) {
-            $classname .= "\\".ucwords($this->request->get('controller'));
+            $controller = "\\".ucwords($this->request->get('controller'));
         } else {
-            $classname .= "\\".ucwords(DEFAULT_CLASS);
+            $controller = "";
         }
-        $classname .= "\\Controller";
+        $classname = $vendor.$controller."\\Controller";
         $controller = new $classname();
 
         switch ($_SERVER["REQUEST_METHOD"]) {

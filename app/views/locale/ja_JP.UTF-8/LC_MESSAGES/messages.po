@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-04 20:55+0900\n"
+"POT-Creation-Date: 2013-03-22 00:10+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,51 +15,15 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /home/miyaa/git/puree/app/views/detail.php:91
-#: /home/miyaa/git/puree/app/views/index.large.php:35
-#: /home/miyaa/git/puree/app/views/index.php:73
-#: /home/miyaa/git/puree/app/views/files/detail.php:73
-#: /home/miyaa/git/puree/app/views/header.php:11
-#: /home/miyaa/git/puree/app/views/users/detail.php:74
-msgid "Add"
-msgstr "追加"
-
-#: /home/miyaa/git/puree/app/views/detail.php:150
-#: /home/miyaa/git/puree/app/views/index.large.php:85
-#: /home/miyaa/git/puree/app/views/add.php:28
-#: /home/miyaa/git/puree/app/views/index.php:97
-#: /home/miyaa/git/puree/app/views/edit.php:27
-#: /home/miyaa/git/puree/app/views/list.php:21
-#: /home/miyaa/git/puree/app/views/users/detail.php:123
-msgid "Delete"
-msgstr "削除"
-
-#: /home/miyaa/git/puree/app/views/detail.php:164
-#: /home/miyaa/git/puree/app/views/index.large.php:98
-#: /home/miyaa/git/puree/app/views/index.php:106
-#: /home/miyaa/git/puree/app/views/users/detail.php:132
-msgid "Next"
-msgstr "次のページ"
-
-#: /home/miyaa/git/puree/app/views/detail.php:170
-msgid "Drag to add files"
-msgstr ""
-
-#: /home/miyaa/git/puree/app/views/index.large.php:37
-msgid "Drag to add a photo"
-msgstr ""
-
 #: /home/miyaa/git/puree/app/views/sessions/index.php:19
 #: /home/miyaa/git/puree/app/views/sessions/edit.php:5
-#: /home/miyaa/git/puree/app/views/form.php:21
-#: /home/miyaa/git/puree/app/views/detail.edit.php:37
+#: /home/miyaa/git/puree/app/views/form.php:20
 msgid "Id"
 msgstr ""
 
 #: /home/miyaa/git/puree/app/views/sessions/index.php:21
 #: /home/miyaa/git/puree/app/views/sessions/edit.php:7
-#: /home/miyaa/git/puree/app/views/users/add.php:26
-#: /home/miyaa/git/puree/app/views/users/index.php:26
+#: /home/miyaa/git/puree/app/views/users/add.php:22
 #: /home/miyaa/git/puree/app/views/users/edit.php:45
 msgid "Password"
 msgstr "パスワード"
@@ -72,25 +36,52 @@ msgstr "ログイン状態を記憶する"
 #: /home/miyaa/git/puree/app/views/sessions/index.php:26
 #: /home/miyaa/git/puree/app/views/sessions/edit.php:11
 #: /home/miyaa/git/puree/app/views/sessions/edit.php:12
+#: /home/miyaa/git/puree/app/views/form.php:46
 #: /home/miyaa/git/puree/app/views/form.php:47
-#: /home/miyaa/git/puree/app/views/form.php:48
-#: /home/miyaa/git/puree/app/views/detail.edit.php:53
-#: /home/miyaa/git/puree/app/views/detail.edit.php:54
-#: /home/miyaa/git/puree/app/views/detail.edit.php:62
-#: /home/miyaa/git/puree/app/views/detail.edit.php:63
-#: /home/miyaa/git/puree/app/views/users/add.php:30
-#: /home/miyaa/git/puree/app/views/users/add.php:31
-#: /home/miyaa/git/puree/app/views/users/index.php:30
-#: /home/miyaa/git/puree/app/views/users/index.php:31
+#: /home/miyaa/git/puree/app/views/users/confirm.php:21
+#: /home/miyaa/git/puree/app/views/users/add.php:26
+#: /home/miyaa/git/puree/app/views/users/add.php:27
 #: /home/miyaa/git/puree/app/views/users/edit.php:63
 #: /home/miyaa/git/puree/app/views/users/edit.php:64
-#: /home/miyaa/git/puree/app/views/users/detail.confirm.php:22
 msgid "Submit"
 msgstr "送信"
 
 #: /home/miyaa/git/puree/app/views/sessions/edit.php:1
 msgid "Login"
 msgstr "ログイン"
+
+#: /home/miyaa/git/puree/app/views/pages/detail.php:28
+#: /home/miyaa/git/puree/app/views/pages/index.php:28
+msgid "Top"
+msgstr "トップ"
+
+#: /home/miyaa/git/puree/app/views/pages/detail.php:82
+#: /home/miyaa/git/puree/app/views/pages/index.php:61
+#: /home/miyaa/git/puree/app/views/files/detail.php:88
+#: /home/miyaa/git/puree/app/views/header.php:11
+#: /home/miyaa/git/puree/app/views/operation.php:5
+#: /home/miyaa/git/puree/app/views/users/detail.php:36
+msgid "Add"
+msgstr "追加"
+
+#: /home/miyaa/git/puree/app/views/pages/detail.php:125
+#: /home/miyaa/git/puree/app/views/pages/add.php:28
+#: /home/miyaa/git/puree/app/views/pages/edit.php:27
+#: /home/miyaa/git/puree/app/views/operation.php:13
+#: /home/miyaa/git/puree/app/views/users/detail.php:79
+#: /home/miyaa/git/puree/app/views/dir.php:83
+msgid "Delete"
+msgstr "削除"
+
+#: /home/miyaa/git/puree/app/views/pages/detail.php:179
+#: /home/miyaa/git/puree/app/views/pages/index.php:67
+#: /home/miyaa/git/puree/app/views/users/detail.php:88
+msgid "Next"
+msgstr "次のページ"
+
+#: /home/miyaa/git/puree/app/views/pages/detail.php:186
+msgid "Drag to add files"
+msgstr ""
 
 #: /home/miyaa/git/puree/app/views/footer.php:2
 msgid "About"
@@ -112,50 +103,43 @@ msgstr "ヘルプ"
 msgid "Contact"
 msgstr "お問い合わせ"
 
-#: /home/miyaa/git/puree/app/views/form.php:14
-#: /home/miyaa/git/puree/app/views/detail.edit.php:31
+#: /home/miyaa/git/puree/app/views/form.php:13
 msgid "Type"
 msgstr ""
 
-#: /home/miyaa/git/puree/app/views/form.php:16
-#: /home/miyaa/git/puree/app/views/detail.edit.php:33
+#: /home/miyaa/git/puree/app/views/form.php:15
 msgid "Image"
 msgstr "画像"
 
-#: /home/miyaa/git/puree/app/views/form.php:17
-#: /home/miyaa/git/puree/app/views/form.php:43
-#: /home/miyaa/git/puree/app/views/detail.edit.php:34
-#: /home/miyaa/git/puree/app/views/detail.edit.php:49
+#: /home/miyaa/git/puree/app/views/form.php:16
+#: /home/miyaa/git/puree/app/views/form.php:42
 msgid "Text"
 msgstr ""
 
-#: /home/miyaa/git/puree/app/views/form.php:24
-#: /home/miyaa/git/puree/app/views/detail.edit.php:39
+#: /home/miyaa/git/puree/app/views/form.php:23
 msgid "Title"
 msgstr "タイトル"
 
-#: /home/miyaa/git/puree/app/views/form.php:27
+#: /home/miyaa/git/puree/app/views/form.php:26
 msgid "View"
 msgstr ""
 
-#: /home/miyaa/git/puree/app/views/form.php:30
+#: /home/miyaa/git/puree/app/views/form.php:29
 #, fuzzy
 msgid "large"
 msgstr "大"
 
-#: /home/miyaa/git/puree/app/views/form.php:32
+#: /home/miyaa/git/puree/app/views/form.php:31
 #, fuzzy
 msgid "Filename"
 msgstr "ファイル"
 
-#: /home/miyaa/git/puree/app/views/form.php:35
-#: /home/miyaa/git/puree/app/views/detail.edit.php:41
+#: /home/miyaa/git/puree/app/views/form.php:34
 #: /home/miyaa/git/puree/app/views/meta.php:36
 msgid "Tags"
 msgstr "タグ"
 
-#: /home/miyaa/git/puree/app/views/form.php:38
-#: /home/miyaa/git/puree/app/views/detail.edit.php:44
+#: /home/miyaa/git/puree/app/views/form.php:37
 msgid "Description"
 msgstr "説明"
 
@@ -169,13 +153,9 @@ msgstr "前のページ"
 msgid "Next Page"
 msgstr "次のページ"
 
-#: /home/miyaa/git/puree/app/views/detail.edit.php:60
-#, fuzzy
-msgid "Destination"
-msgstr "説明"
-
 #: /home/miyaa/git/puree/app/views/header.php:12
-#: /home/miyaa/git/puree/app/views/users/detail.php:78
+#: /home/miyaa/git/puree/app/views/operation.php:9
+#: /home/miyaa/git/puree/app/views/users/detail.php:40
 msgid "Edit"
 msgstr "編集"
 
@@ -207,17 +187,31 @@ msgstr "更新日"
 msgid "Trends"
 msgstr "トレンド"
 
+#: /home/miyaa/git/puree/app/views/users/confirm.php:16
+#: /home/miyaa/git/puree/app/views/users/confirm.php:20
+#: /home/miyaa/git/puree/app/Users/Model.php:51
+#: /home/miyaa/git/puree/app/Users/Model.php:186
+msgid "User confirmation"
+msgstr "アカウントの確認"
+
+#: /home/miyaa/git/puree/app/views/users/send.php:15
+msgid "Send Email"
+msgstr "メールを送信しました"
+
 #: /home/miyaa/git/puree/app/views/users/add.php:20
-#: /home/miyaa/git/puree/app/views/users/index.php:20
 #: /home/miyaa/git/puree/app/views/users/edit.php:38
 msgid "Username"
 msgstr "ユーザー名"
 
-#: /home/miyaa/git/puree/app/views/users/add.php:28
-#: /home/miyaa/git/puree/app/views/users/index.php:28
+#: /home/miyaa/git/puree/app/views/users/add.php:24
 #: /home/miyaa/git/puree/app/views/users/edit.php:48
 msgid "Email"
 msgstr "Email"
+
+#: /home/miyaa/git/puree/app/views/users/complete.php:16
+#, fuzzy
+msgid "Success"
+msgstr "ソース"
 
 #: /home/miyaa/git/puree/app/views/users/edit.php:50
 msgid "Role"
@@ -235,15 +229,9 @@ msgstr "プロフィール"
 msgid "Icon"
 msgstr "アイコン"
 
-#: /home/miyaa/git/puree/app/views/users/index.send.php:15
-msgid "Send Email"
-msgstr "メールを送信しました"
-
-#: /home/miyaa/git/puree/app/views/users/detail.confirm.php:16
-#: /home/miyaa/git/puree/app/views/users/detail.confirm.php:21
-#: /home/miyaa/git/puree/app/models/users.php:129
-msgid "User confirmation"
-msgstr "アカウントの確認"
+#, fuzzy
+#~ msgid "Destination"
+#~ msgstr "説明"
 
 #~ msgid "Body"
 #~ msgstr "本文"
@@ -289,9 +277,6 @@ msgstr "アカウントの確認"
 
 #~ msgid "New"
 #~ msgstr "新規"
-
-#~ msgid "Source"
-#~ msgstr "ソース"
 
 #~ msgid "Design"
 #~ msgstr "デザイン"
@@ -361,9 +346,6 @@ msgstr "アカウントの確認"
 
 #~ msgid "Template"
 #~ msgstr "テンプレート"
-
-#~ msgid "Top"
-#~ msgstr "トップ"
 
 #~ msgid "Article"
 #~ msgstr "記事"

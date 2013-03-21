@@ -8,23 +8,20 @@ class Controller
         //$singleton = Request::singleton();
         $this->request = Request::singleton();
         $this->req = $this->request->req;
-        if ($this->request->get('controller')){
-            $this->controller = $this->req['controller']."/";
+
+        if ($this->request->get('vendor')) {
+            $vendor = "\\".ucwords($this->request->get('vendor'));
         } else {
-            $this->controller = "";
+            $vendor = "";
         }
         if ($this->request->get('controller')) {
-            $modelname = "\\".ucwords($this->request->get('controller'))."\\Model";
+            $controller = "\\".ucwords($this->request->get('controller'));
         } else {
-            $modelname = "\\".ucwords(DEFAULT_CLASS)."\\Model";
+            $controller = "";
         }
-        $this->model = new $modelname();
-        /*
-        $this->sessionsmodel = new SessionsModel();
-        $var = $this->sessionsmodel->get($this->req);
-        $this->session = $var['session'];
-                $this->var['session'] = $var['session'];
-         */
+        $classname = $vendor.$controller."\\Model";
+        $this->model = new $classname();
+
         $this->validator = new Validator();
         $this->var['req'] = $this->req;
         $this->var['base'] = BASE;
@@ -49,6 +46,11 @@ class Controller
         }
         if(isset($this->req['extension'])){
             $this->template .= '.'.$this->req['extension'];
+        }
+        if(isset($this->req['vendor'])){
+            $this->template = $this->req['vendor']."/".$this->template;
+        } else {
+            $this->template = $this->template;
         }
         if(isset($this->req['controller'])){
             $this->template = $this->req['controller']."/".$this->template;
