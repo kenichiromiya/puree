@@ -9,15 +9,13 @@ class Controller
         $this->request = Request::singleton();
         $this->req = $this->request->req;
 
+        $vendor = '';
         if ($this->request->get('vendor')) {
             $vendor = "\\".ucwords($this->request->get('vendor'));
-        } else {
-            $vendor = "";
         }
+        $controller = '';
         if ($this->request->get('controller')) {
             $controller = "\\".ucwords($this->request->get('controller'));
-        } else {
-            $controller = "";
         }
         $classname = $vendor.$controller."\\Model";
         $this->model = new $classname();
@@ -30,35 +28,27 @@ class Controller
         } else {
             $this->parent_id = "";
         }
-        if (isset($this->req['view'])) {
-            $view = ".".$this->req['view'];
-        } elseif ($var['view']) {
-            $view = ".".$var['view'];
-        } else  {
-            $view = "";
-        }
-        if(isset($this->req['view'])){
-            $this->template .= $this->req['view'];
-        } elseif($this->req['id']){
-            $this->template = 'detail';
+        if($this->request->get('id')){
+            $name = 'detail';
         } else {
-            $this->template = 'index';
+            $name = 'index';
         }
-        if(isset($this->req['extension'])){
-            $this->template .= '.'.$this->req['extension'];
+        if ($this->request->get('view')) {
+            $name = $this->request->get('view');
         }
-        if(isset($this->req['vendor'])){
-            $this->template = $this->req['vendor']."/".$this->template;
-        } else {
-            $this->template = $this->template;
+        $extention = '';
+        if ($this->request->get('extention')) {
+            $extention = '.'.$this->request->get('extention');
         }
-        if(isset($this->req['controller'])){
-            $this->template = $this->req['controller']."/".$this->template;
-        } else {
-            $this->template = $this->template;
+        $controller = '';
+        if ($this->request->get('controller')) {
+            $controller = $this->request->get('controller')."/";
         }
-        $this->template .= '.php';
-
+        $vendor = '';
+        if ($this->request->get('vendor')) {
+            $vendor = $this->request->get('vendor')."/";
+        }
+        $this->template = $vendor.$controller.$name.$extention.'.php';
     }
 
     public function get() {
@@ -74,7 +64,6 @@ class Controller
         //header("Location:".$this->top.$this->req['controller']."/");
     }
     public function post() {
-        //$this->model->post($this->req['post']);
         $this->model->post($this->req);
         header("Location:".BASE.$this->req['controller'].(isset($this->req['controller']) ? "/": "").dirname($this->req['id']));
         //header("Location:".BASE.$this->controller.dirname($this->req['id']));

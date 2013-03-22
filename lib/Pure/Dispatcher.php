@@ -9,15 +9,13 @@ class Dispatcher {
     }
 
     public function dispatch() {
+        $vendor = '';
         if ($this->request->get('vendor')) {
             $vendor = "\\".ucwords($this->request->get('vendor'));
-        } else {
-            $vendor = "";
         }
+        $controller = '';
         if ($this->request->get('controller')) {
             $controller = "\\".ucwords($this->request->get('controller'));
-        } else {
-            $controller = "";
         }
         $classname = $vendor.$controller."\\Controller";
         $controller = new $classname();
