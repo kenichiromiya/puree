@@ -14,7 +14,8 @@ namespace Pure;
 class Dispatcher {
     public function __construct() {
         //$singleton = Request::singleton();
-        $this->request = Request::singleton();
+        //$this->request = Request::singleton();
+        $this->request = Request::getInstance();
         $this->req = $this->request->req;
     }
 
@@ -32,6 +33,8 @@ class Dispatcher {
         $controllername = $vendor.$controller."\\Controller";
         //$controller = new $controllername(new $modelname());
         $controller = new $controllername();
+        //$controller->request = $this->request;
+        //$controller->req = $this->request->req;
         //$controller->set('model',$model);
 
 /*

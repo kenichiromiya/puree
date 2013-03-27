@@ -6,7 +6,6 @@ class Controller extends \Pure\Controller
 
     public function __construct() {
         parent::__construct();
-        $singleton = \Pure\Request::singleton();
         $this->sessionsmodel = new \Sessions\Model();
         $var = $this->sessionsmodel->get($this->req);
         $this->session = $var['session'];

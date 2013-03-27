@@ -38,7 +38,7 @@ class Request
             return strip_tags($_GET[$key]);
         }
     }
-    public static function singleton()
+    public static function getInstance()
     {
         if (!isset(self::$instance)) {
             //echo 'Creating new instance.';

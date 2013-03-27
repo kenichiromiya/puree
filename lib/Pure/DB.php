@@ -10,7 +10,7 @@ class DB
     {
     }
 
-    public static function singleton()
+    public static function getInstance()
     {
         if (!isset(self::$instance)) {
             //echo 'Creating new instance.';

@@ -8,7 +8,8 @@ class Controller
         //$singleton = Request::singleton();
         //$container = new DIContainer(new MyComponentFactory);
         //$this->request = $container->get('request');
-        $this->request = Request::singleton();
+        //$this->request = Request::singleton();
+        $this->request = Request::getInstance();
         $this->req = $this->request->req;
 
         //if ($model) {

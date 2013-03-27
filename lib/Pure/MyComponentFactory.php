@@ -6,7 +6,7 @@ class MyComponentFactory extends ComponentFactory
     function buildRequest()
     {
         //$request = new \Pure\Request();
-        $request = Request::singleton();
+        $request = Request::getInstance();
         return $request;
     }
 

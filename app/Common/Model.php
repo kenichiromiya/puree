@@ -5,8 +5,8 @@ class Model extends \Pure\Model
 {
 
     public function __construct() {
-        $singleton = \Pure\DB::singleton();
-        $this->dbh = $singleton->dbh;
+        $db = \Pure\DB::getInstance();
+        $this->dbh = $db->dbh;
 
         $classname = get_class($this);
         //$classname = get_class();
