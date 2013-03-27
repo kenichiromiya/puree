@@ -1,4 +1,14 @@
 <?php
+/*
+ * Pure : PHP Utilized Restful Engine
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Kenichiro Miya
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
 namespace Pure;
 
 class Dispatcher {
@@ -9,6 +19,7 @@ class Dispatcher {
     }
 
     public function dispatch() {
+
         $vendor = '';
         if ($this->request->get('vendor')) {
             $vendor = "\\".ucwords($this->request->get('vendor'));
@@ -17,8 +28,22 @@ class Dispatcher {
         if ($this->request->get('controller')) {
             $controller = "\\".ucwords($this->request->get('controller'));
         }
-        $classname = $vendor.$controller."\\Controller";
-        $controller = new $classname();
+        //$modelname = $vendor.$controller."\\Model";
+        $controllername = $vendor.$controller."\\Controller";
+        //$controller = new $controllername(new $modelname());
+        $controller = new $controllername();
+        //$controller->set('model',$model);
+
+/*
+        $vendor = '';
+        if ($this->request->get('vendor')) {
+            $vendor = "\\".ucwords($this->request->get('vendor'));
+        }
+        $controller = '';
+        if ($this->request->get('controller')) {
+            $controller = "\\".ucwords($this->request->get('controller'));
+        }
+*/
 
         switch ($_SERVER["REQUEST_METHOD"]) {
         case "POST":

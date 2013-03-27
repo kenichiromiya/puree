@@ -6,9 +6,14 @@ class Controller
 
     public function __construct() {
         //$singleton = Request::singleton();
+        //$container = new DIContainer(new MyComponentFactory);
+        //$this->request = $container->get('request');
         $this->request = Request::singleton();
         $this->req = $this->request->req;
 
+        //if ($model) {
+        //    $this->model = $model;
+        //} else {
         $vendor = '';
         if ($this->request->get('vendor')) {
             $vendor = "\\".ucwords($this->request->get('vendor'));
@@ -19,6 +24,7 @@ class Controller
         }
         $classname = $vendor.$controller."\\Model";
         $this->model = new $classname();
+        //}
 
         $this->validator = new Validator();
         $this->var['req'] = $this->req;
