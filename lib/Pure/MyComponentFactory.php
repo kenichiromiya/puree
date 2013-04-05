@@ -10,6 +10,18 @@ class MyComponentFactory extends ComponentFactory
         return $request;
     }
 
+    function buildDB()
+    {
+        //$request = new \Pure\Request();
+        $db = DB::getInstance($this->container->get('MyPDO'));
+        return $db;
+    }
+    function buildMyPDO()
+    {
+        //$request = new \Pure\Request();
+        $mypdo = new MyPDO();
+        return $mypdo;
+    }
 }
 
 ?>

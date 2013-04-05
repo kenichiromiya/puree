@@ -4,7 +4,9 @@ spl_autoload_register('pure_autoloader');
 
 function pure_autoloader($className)
 {
-    //error_log($className);
+    if (preg_match('/_/',$className)){
+        return;
+    }
     $className = ltrim($className, '\\');
     $fileName  = '';
     $namespace = '';
@@ -16,8 +18,6 @@ function pure_autoloader($className)
     $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
     //require PURE_DIR.$fileName;
-    //if(is_file($fileName)){
-    include $fileName;
-    //}
+    require $fileName;
 }
 ?>
