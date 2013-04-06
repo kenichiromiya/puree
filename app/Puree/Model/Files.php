@@ -1,11 +1,12 @@
 <?php
-namespace Files;
+namespace Puree\Model;
 
-class Model extends \Common\Model {
+class Files extends \Puree\Model\Common {
     public $error;
 
     public function __construct(){
         parent::__construct();
+        $this->table = TABLE_PREFIX."files";
     }
 
     public function put($req){

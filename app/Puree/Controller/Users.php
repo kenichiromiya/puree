@@ -1,11 +1,12 @@
 <?php
-namespace Users;
+namespace Puree\Controller;
 
-class Controller extends \Common\Controller
+class Users extends \Puree\Controller\Common
 {
 
     public function __construct() {
         parent::__construct();
+        $this->model = new \Puree\Model\Users();
     }
 
     public function post() {

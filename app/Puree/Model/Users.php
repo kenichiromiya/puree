@@ -1,10 +1,11 @@
 <?php
-namespace Users;
+namespace Puree\Model;
 
-class Model extends \Common\Model {
+class Users extends \Puree\Model\Common {
 
     public function __construct(){
         parent::__construct();
+        $this->table = TABLE_PREFIX."users";
         $this->pages_table = TABLE_PREFIX.'pages';
         $this->files_table = TABLE_PREFIX.'files';
     }

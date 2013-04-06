@@ -1,12 +1,12 @@
 <?php
-namespace Common;
+namespace Puree\Controller;
 
-class Controller extends \Pure\Controller
+class Common extends \Pure\Controller
 {
 
     public function __construct() {
         parent::__construct();
-        $this->sessionsmodel = new \Sessions\Model();
+        $this->sessionsmodel = new \Puree\Model\Sessions();
         $var = $this->sessionsmodel->get($this->req);
         $this->session = $var['session'];
         $this->var['session'] = $var['session'];

@@ -1,6 +1,15 @@
 <?php
+/*
+ * Pure : PHP Utilized Restful Engine
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Kenichiro Miya
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
 spl_autoload_register('pure_autoloader');
-
 
 function pure_autoloader($className)
 {
@@ -17,7 +26,6 @@ function pure_autoloader($className)
     }
     $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
-    //require PURE_DIR.$fileName;
     require $fileName;
 }
 ?>

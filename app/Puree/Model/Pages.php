@@ -1,11 +1,12 @@
 <?php
-namespace Pages;
+namespace Puree\Model;
 
-class Model extends \Common\Model {
+class Pages extends \Puree\Model\Common {
     public $error;
 
     public function __construct(){
         parent::__construct();
+        $this->table = TABLE_PREFIX."pages";
         $this->files_table = TABLE_PREFIX.'files';
     }
     public function get($req){

@@ -30,7 +30,14 @@ class Dispatcher {
             $controller = "\\".ucwords($this->request->get('controller'));
         }
         //$modelname = $vendor.$controller."\\Model";
+        $controllername = "\\Puree\\Controller".$controller;
+/*
+        if (preg_match("/pages/",$this->request->get('controller'))) {
+        $controllername = "\\Puree\\Controller".$controller;
+        } else {
         $controllername = $vendor.$controller."\\Controller";
+        }
+*/
         //$controller = new $controllername(new $modelname());
         $controller = new $controllername();
         //$controller->request = $this->request;

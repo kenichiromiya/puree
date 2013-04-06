@@ -1,10 +1,11 @@
 <?php
-namespace Sessions;
+namespace Puree\Controller;
 
-class Controller extends \Common\Controller
+class Sessions extends \Puree\Controller\Common
 {
     public function __construct() {
         parent::__construct();
+        $this->model = new \Puree\Model\Sessions();
     }
 
     public function post() {

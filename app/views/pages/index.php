@@ -15,9 +15,6 @@
 <!--script type="text/javascript" src="<?=BASE?>js/bottom.js"></script-->
 </head>
 <body>
-<?php
-include_once "Puree/functions/markdown.php";
-?>
 
 <div id="wrapper">
 <?php include("header.php")?>

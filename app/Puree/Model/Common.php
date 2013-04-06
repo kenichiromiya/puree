@@ -1,20 +1,23 @@
 <?php
-namespace Common;
+namespace Puree\Model;
 
-class Model extends \Pure\Model
+class Common extends \Pure\Model
 {
 
     public function __construct() {
-        $db = \Pure\DB::getInstance();
-        $this->dbh = $db->dbh;
+        //$db = \Pure\DB::getInstance();
+        //$this->dbh = $db->dbh;
+        $container = new \Pure\DIContainer(new \Puree\MyComponentFactory);
+        $pdo = $container->get('mypdo');
+        $this->dbh = $pdo;
 
         $classname = get_class($this);
         //$classname = get_class();
         //error_log($classname);
         //preg_match("/(.*)Model/",$classname,$m);
-        preg_match("/(.*)\\\\Model/",$classname,$m);
-        $this->modelsname = strtolower($m[1]);
-        $this->table = TABLE_PREFIX.$this->modelsname;
+        //preg_match("/(.*)\\\\Model/",$classname,$m);
+        //$this->modelsname = strtolower($m[1]);
+        //$this->table = TABLE_PREFIX.$this->modelsname;
     }
 
     public function get($req){

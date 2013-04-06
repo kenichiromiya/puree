@@ -15,6 +15,7 @@ class Controller
         //if ($model) {
         //    $this->model = $model;
         //} else {
+/*
         $vendor = '';
         if ($this->request->get('vendor')) {
             $vendor = "\\".ucwords($this->request->get('vendor'));
@@ -25,6 +26,7 @@ class Controller
         }
         $classname = $vendor.$controller."\\Model";
         $this->model = new $classname();
+*/
         //}
 
         $this->validator = new Validator();
