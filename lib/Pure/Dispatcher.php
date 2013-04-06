@@ -13,47 +13,22 @@ namespace Pure;
 
 class Dispatcher {
     public function __construct() {
-        //$singleton = Request::singleton();
-        //$this->request = Request::singleton();
         $this->request = Request::getInstance();
         $this->req = $this->request->req;
     }
 
     public function dispatch() {
 
-        $vendor = '';
-        if ($this->request->get('vendor')) {
-            $vendor = "\\".ucwords($this->request->get('vendor'));
+        $module = '';
+        if ($this->request->get('module')) {
+            $module = "\\".ucwords($this->request->get('module'));
         }
         $controller = '';
         if ($this->request->get('controller')) {
             $controller = "\\".ucwords($this->request->get('controller'));
         }
-        //$modelname = $vendor.$controller."\\Model";
-        $controllername = "\\Puree\\Controller".$controller;
-/*
-        if (preg_match("/pages/",$this->request->get('controller'))) {
-        $controllername = "\\Puree\\Controller".$controller;
-        } else {
-        $controllername = $vendor.$controller."\\Controller";
-        }
-*/
-        //$controller = new $controllername(new $modelname());
+        $controllername = $module."\\Controller".$controller;
         $controller = new $controllername();
-        //$controller->request = $this->request;
-        //$controller->req = $this->request->req;
-        //$controller->set('model',$model);
-
-/*
-        $vendor = '';
-        if ($this->request->get('vendor')) {
-            $vendor = "\\".ucwords($this->request->get('vendor'));
-        }
-        $controller = '';
-        if ($this->request->get('controller')) {
-            $controller = "\\".ucwords($this->request->get('controller'));
-        }
-*/
 
         switch ($_SERVER["REQUEST_METHOD"]) {
         case "POST":
