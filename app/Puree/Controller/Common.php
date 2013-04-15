@@ -20,7 +20,7 @@ class Common extends \Pure\Controller
    
         // if page not exist
         if($this->req['id'] and !$this->var['row']) {
-            $this->template = "edit.php";
+            $this->template = "puree/pages/edit.php";
         }
         $this->view = new \Pure\View($this->template);
         $contents = $this->view->getcontents($this->var);

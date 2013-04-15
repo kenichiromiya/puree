@@ -16,13 +16,15 @@ class Validator {
                 case "url":
                     if (preg_match('/^(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$|^$/', $value)) {
                     } else {
-                        $this->errors[$key] ="Invalid URL";
+                        //$this->errors[$key] ="Invalid URL";
+                        $this->errors[$key] = $this->rule[$key]['message'];
                     }
                     break;
                 case "email":
                     if (preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$|^$/", $value)) {
                     } else {
-                        $this->errors[$key] ="Invalid Email";
+                        //$this->errors[$key] ="Invalid Email";
+                        $this->errors[$key] = $this->rule[$key]['message'];
                     }
 
                     break;
