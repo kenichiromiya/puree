@@ -58,6 +58,7 @@ $wiki = new Text_Wiki();
 $wiki->setFormatConf('Xhtml', 'translate', HTML_SPECIALCHARS);
 echo $wiki->transform($text, 'xhtml');
 */
+/*
 require_once "Text/Wiki/Mediawiki.php";
 
 $wiki=new Text_Wiki_Mediawiki();
@@ -68,7 +69,8 @@ $wiki->setRenderConf('Xhtml', 'Wikilink', 'new_url', BASE.$req['id'].'/%s');
 $wiki->setRenderConf('Xhtml', 'Wikilink', 'new_text', '');
 $wiki->setFormatConf('Xhtml','translate',HTML_SPECIALCHARS);
 echo $wiki->transform($row['text'], 'xhtml');
-
+*/
+echo $row['text'];
 ?>
 </div><!--text-->
 <div id="twitter">
@@ -98,6 +100,7 @@ foreach($files as $file) :
 if($file['filename']):
 ?>
 <?php
+/*
     if (!file_exists("upload/large/".$file['filename'])){
         $im = new Imagick();
         $im->readImage("upload/".$file['filename']);
@@ -113,11 +116,13 @@ if($file['filename']):
         $im->destroy();
 
     }
+*/
 //$image = new Image();
 //$image->resize("upload/large/".$filename,"upload/".$filename,900,900);
 ?>
+<?php /*
 <div class="image">
-<a href="<?=BASE?>upload/<?=$file['filename']?>"><img src="<?=BASE?>upload/large/<?=$file['filename']?>"></a>
+<a href="<?=BASE?>upload/<?=$file['filename']?>"><?=BASE?>upload/large/<?=$file['filename']?></a>
 <?php if($session['role'] == "admin" or $file['user_id'] == $session['user_id']): ?>
 <form action="<?=BASE?>files/<?=$file['id']?>" method="post">
 <input type="hidden" name="_method" value="delete">
@@ -126,6 +131,7 @@ if($file['filename']):
 </form>
 <?php endif; ?>
 </div><!--image-->
+<?php */?>
 <?php
 endif;
 ?>
@@ -185,8 +191,8 @@ $im->destroy();
 <div id="drag" draggable="true">
 <?=_('Drag to add files')?>
 </div><!--drag-->
-<?php endif;?>
 </form>
+<?php endif;?>
 </div><!--main-->
 <div id="sub">
 <?php include("list.php");?>

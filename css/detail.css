@@ -97,3 +97,23 @@ li {
     position: absolute;  /* 親要素を基点に配置 */
     top:0;
 }
+
+form label {
+    display: block;
+    width: 100px;
+    float: left;
+    margin-bottom: 10px;
+    text-align: left;
+    padding-right: 15px;
+}
+
+#edit {
+    border: 1px;
+    border-style:solid;
+    width:95%;
+    height:300px;
+}
+textarea {
+    width:95%;
+    height:300px;
+}

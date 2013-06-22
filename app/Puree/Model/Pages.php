@@ -195,14 +195,41 @@ class Pages extends \Puree\Model\Common {
                 {
                     chmod($upload_file,0644);
                 }
+
+        $im = new Imagick();
+        $im->readImage("upload/".$filename);
+        $width = $im->getImageWidth();
+        if ($width > 600) {
+            $im->resizeImage(600, 0, imagick::FILTER_MITCHELL, 1);
+        }
+        $large = "upload/large/".$filename;
+        if (!is_dir(dirname($large))) {
+            mkdir(dirname($large),0777,true);
+        }
+        $im->writeImage($large);
+        $im->destroy();
+
+        $im = new Imagick();
+        $im->readImage("upload/".$filename);
+        $width = $im->getImageWidth();
+        if ($width > 150) {
+            $im->resizeImage(150, 0, imagick::FILTER_MITCHELL, 1);
+        }
+        $small = "upload/small/".$filename;
+        if (!is_dir(dirname($small))) {
+            mkdir(dirname($small),0777,true);
+        }
+        $im->writeImage($small);
+        $im->destroy();
+
                 /*
                 $image = new Image();
                 $image->imageresize($upload_thumb_file,$upload_file,200);
                 $image->imageresize($upload_large_file,$upload_file,1000,1000);
                  */
-                $image = new Image();
-                $image->resize("upload/thumb/".$filename,$upload_file,200,300);
-                $image->resize("upload/large/".$filename,$upload_file,600,900);
+                //$image = new Image();
+                //$image->resize("upload/thumb/".$filename,$upload_file,200,300);
+                //$image->resize("upload/large/".$filename,$upload_file,600,900);
                 //$id = $req['id'].$file["name"];
                 $pathinfo = pathinfo($file["name"]);
                 $id = $req['id'].($req['id'] ? "/":"").$pathinfo['filename'];
@@ -220,7 +247,10 @@ class Pages extends \Puree\Model\Common {
             }
         } else {
             $param = $req['post'];
-            $id = $req['id'].($req['id'] ? "/":"").date('ymdHis');
+            $rand = $this->getRandomString();
+            $id = $req['id'].($req['id'] ? "/":"").$rand;
+            //echo $id;
+            //$id = $req['id'].($req['id'] ? "/":"").date('ymdHis');
             //$id = $req['id'].($req['id'] ? "/":"").substr(md5(time()),0,5);
             //$id = $req['id'].($req['id'] ? "/":"").substr(md5(time()),0,5);
             $param['id'] = $id;
@@ -228,6 +258,16 @@ class Pages extends \Puree\Model\Common {
             $param['created'] = date('Y-m-d H:i:s');
             $this->dbh->insert($this->table,$param);
         }
+    }
+
+    public function getRandomString($nLengthRequired = 5){
+        $sCharList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
+        mt_srand();
+        $sRes = "";
+        for($i = 0; $i < $nLengthRequired; $i++) {
+            $sRes .= $sCharList{mt_rand(0, strlen($sCharList) - 1)};
+        }
+        return $sRes;
     }
 
     public function delete($req) {

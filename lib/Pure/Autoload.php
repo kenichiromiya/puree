@@ -16,6 +16,7 @@ function pure_autoloader($className)
     if (preg_match('/_/',$className)){
         return;
     }
+    error_log($className);
     $className = ltrim($className, '\\');
     $fileName  = '';
     $namespace = '';

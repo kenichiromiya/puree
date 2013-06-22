@@ -1,5 +1,6 @@
 <?php
 namespace Puree\Model;
+use Imagick;
 
 class Files extends \Puree\Model\Common {
     public $error;
@@ -45,6 +46,7 @@ class Files extends \Puree\Model\Common {
         // TODO
         // ファイル名に[]が入ると配列として認識されてしまう。
         if (count($_FILES)){
+            $filenames = array();
             foreach($_FILES as $file) {
                 $dirname = "upload";
                 if (!is_dir($dirname)){
@@ -73,12 +75,69 @@ class Files extends \Puree\Model\Common {
                 if(is_file("upload/large/$filename")){
                     unlink("upload/large/$filename");
                 }
+                if(is_file("upload/small/$filename")){
+                    unlink("upload/small/$filename");
+                }
                 if(is_file("upload/thumb/$filename")){
                     unlink("upload/thumb/$filename");
                 }
                 if(is_file("upload/preview/".$parent_id.".jpg")){
                     unlink("upload/preview/".$parent_id.".jpg");
                 }
+        $im = new Imagick();
+        $im->readImage("upload/".$filename);
+        $width = $im->getImageWidth();
+        if ($width > 600) {
+            $im->resizeImage(600, 0, imagick::FILTER_MITCHELL, 1);
+        }
+        $large = "upload/large/".$filename;
+        if (!is_dir(dirname($large))) {
+            mkdir(dirname($large),0777,true);
+        }
+        $im->writeImage($large);
+        $im->destroy();
+
+        $im = new Imagick();
+        $im->readImage("upload/".$filename);
+        $width = $im->getImageWidth();
+        if ($width > 150) {
+            $im->resizeImage(150, 0, imagick::FILTER_MITCHELL, 1);
+        }
+        $small = "upload/small/".$filename;
+        if (!is_dir(dirname($small))) {
+            mkdir(dirname($small),0777,true);
+        }
+        $im->writeImage($small);
+        $im->destroy();
+
+
+/*
+        $im = new Imagick();
+        $im->readImage("upload/".$filename);
+        $width = $im->getImageWidth();
+        if ($width > 600) {
+            $im->resizeImage(600, 0, imagick::FILTER_MITCHELL, 1);
+        }
+        $large = "upload/large/".$filename;
+        if (!is_dir(dirname($large))) {
+            mkdir(dirname($large),0777,true);
+        }
+        $im->writeImage($large);
+        $im->destroy();
+
+        $im = new Imagick();
+        $im->readImage("upload/".$filename);
+        $width = $im->getImageWidth();
+        if ($width > 150) {
+            $im->resizeImage(150, 0, imagick::FILTER_MITCHELL, 1);
+        }
+        $small = "upload/small/".$filename;
+        if (!is_dir(dirname($small))) {
+            mkdir(dirname($small),0777,true);
+        }
+        $im->writeImage($small);
+        $im->destroy();
+*/
                 //$id = $req['id'].$file["name"];
                 $pathinfo = pathinfo($file["name"]);
                 $id = $req['id'].($req['id'] ? "/":"").$pathinfo['filename'];
@@ -91,8 +150,12 @@ class Files extends \Puree\Model\Common {
                 $height = $size[1];
                 $this->dbh->delete($this->table,$id);
                 $created = date('Y-m-d H:i:s');
+                // TODO 同じものを書き込む場合
                 $this->dbh->insert($this->table,array("id"=>$id,"parent_id"=>$parent_id,"filename"=>$filename,"width"=>$width,"height"=>$height,"type"=>$type,"user_id"=>$req['user_id'],"created"=>$created));
+                array_push($filenames,$filename);
             }
+            $var['filenames'] = $filenames;
+            return $var;
         } else {
             $param = $req['post'];
             //$id = $req['id']."/".date('YmdHi');

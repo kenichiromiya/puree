@@ -84,40 +84,78 @@ $(document).ready(function () {
 		});
 	});
 */
-    var uploadFiles = function (files) {
-        // FormData オブジェクトを用意
-        var fd = new FormData();
+    $("#save").click(function(){
+        //alert($('#editor').attr('action'));
+        //$('#editor').submit();
+        $('#text').val($('#edit').html());
+        $('#editor').submit();
+        //alert( $('#text').val());
+        // formにサブミットボタンがあるとサブミットできない
+        return true;
+        });
 
-        // ファイル情報を追加する
-        for (var i = 0; i < files.length; i++) {
-            fd.append(i, files[i]);
-        }
+        $(".upload").bind("click", function (e) {
+            e.preventDefault();
+            var html = $('#edit').html();
+            html = html+'<img src="'+$(this).attr('href')+'">';
+            $('#edit').html(html); 
+        });
+/*
+        $('.upload').click(function(){
+            var html = $('#edit').html();
+            html = html+"bbb";
+            $('#edit').html(html); 
+        });
+*/
+        var uploadFiles = function (files) {
+            // FormData オブジェクトを用意
+            var fd = new FormData();
 
-        // XHR で送信
-        //url = document.URL.replace(/\/[a-zA-z0-9_]+$/,"/");
-        //url = document.URL+"<?=$session['user_id']?>";
-	//url = document.URL;
-    //alert($("#drag").parent().get(0).action);
-    url = $("#drag").parent().get(0).action;
-    redirect = $("#drag").parent().find("input[name=redirect]").val();
-	//url = "<?=BASE?>"+"files/"+"<?=$req['id']?>";
-	$.ajax({
-		url: url,
-		type: "POST",
-		data: fd,
-		processData: false,
-		contentType: false,
-		success: function(html){
-		},
-		complete: function(html){
-            if(redirect) {
-			document.location = redirect;
-            } else {
-			document.location = url;
+            // ファイル情報を追加する
+            for (var i = 0; i < files.length; i++) {
+                fd.append(i, files[i]);
             }
-		}
-	});
-    };
+
+            // XHR で送信
+            //url = document.URL.replace(/\/[a-zA-z0-9_]+$/,"/");
+            //url = document.URL+"<?=$session['user_id']?>";
+            //url = document.URL;
+            //alert($("#drag").parent().get(0).action);
+            url = $("#drag").parent().get(0).action;
+            redirect = $("#drag").parent().find("input[name=redirect]").val();
+            //url = "<?=BASE?>"+"files/"+"<?=$req['id']?>";
+            $.ajax({
+            url: url,
+            type: "POST",
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function(html){
+            //var re = $.parseJSON(html);
+            //console.debug(re[0]); 
+            //alert(html);
+            //    alert(html.filenames);
+                for (var i = 0; i < html.filenames.length; i++) {
+                    //alert(html.filenames[i]);
+                    //$('#edit').append('<img src="http://www26145ue.sakura.ne.jp/puree/upload/large/'+html.filenames[i]+'">'); 
+$("<img>").attr("src", "http://www26145ue.sakura.ne.jp/puree/upload/large/"+html.filenames[i]).appendTo('#edit');
+                    $('#edit').height($('#edit').height()+300);
+
+//$('<img src="http://www26145ue.sakura.ne.jp/puree/upload/large/'+html.filenames[i]+'">').appendTo('#edit');
+                }
+            },
+            complete: function(html){
+                alert("aaa");
+                if(redirect) {
+                    document.location = redirect;
+                } else {
+                //document.location = url;
+                }
+            }
+        });
+};
+
+
 
    //var value = $.jStorage.get("items");
 /*
@@ -140,12 +178,14 @@ $(document).ready(function () {
 
     // ドラッグドロップからの入力
     $("#drag").bind("drop", function (e) {
-        // ドラッグされたファイル情報を取得
+            // ドラッグされたファイル情報を取得
         var files = e.originalEvent.dataTransfer.files;
 
         // アップロード処理
         uploadFiles(files);
-	e.preventDefault();
+            //var html = $('#edit').html();
+            //html = html+'<img src="'+$(this).attr('href')+'">';
+        e.preventDefault();
     });
 
     /*

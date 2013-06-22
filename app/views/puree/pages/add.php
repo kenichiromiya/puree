@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <title><?php echo TITLE; ?> - <?=$title?></title>
 <link rel="stylesheet" type="text/css" href="<?=BASE?>css/style.css"/>
-<link rel="stylesheet" type="text/css" href="<?=BASE?>css/add.css"/>
+<link rel="stylesheet" type="text/css" href="<?=BASE?>css/detail.css"/>
 <script type="text/javascript" src="<?=BASE?>js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="<?=BASE?>js/javascript.js"></script>
 </head>

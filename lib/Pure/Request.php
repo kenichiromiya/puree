@@ -8,6 +8,7 @@ class Request
 
     private function __construct()
     {
+        $this->tags = '<img><p><a><br><div>';
         /*
         $cwd = getcwd();
         $uri = str_replace("$cwd","",$_SERVER["DOCUMENT_ROOT"].preg_replace("#\?.*$#","",$_SERVER["REQUEST_URI"]));
@@ -35,7 +36,8 @@ class Request
         if (!isset($_GET[$key])) {
             return FALSE;
         } else {
-            return strip_tags($_GET[$key]);
+            //return strip_tags($_GET[$key]);
+            return strip_tags($_GET[$key],$this->tags);
         }
     }
     public static function getInstance()
@@ -58,14 +60,16 @@ class Request
                 // TODO array sanitize
                 $post[$key] = $value;
             } else {
-                $post[$key] = strip_tags($value);
+                //$post[$key] = strip_tags($value);
+                $post[$key] = strip_tags($value,$this->tags);
             }
         }
         foreach ($_GET as $key => $value) {
             if (is_array($value)) {
                 $get[$key] = $value;
             } else {
-                $get[$key] = strip_tags($value);
+                //$get[$key] = strip_tags($value);
+                $get[$key] = strip_tags($value,$this->tags);
             }
         }
         //$this->req = array_merge($get,$post);

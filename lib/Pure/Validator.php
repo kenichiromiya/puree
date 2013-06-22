@@ -6,6 +6,10 @@ class Validator {
     public $errors;
     public function __construct() {
         $this->errors = array();
+        $this->messages = array(
+            "url"=>"Invalid URL",
+            "mail"=>"Invalid Email"
+        );
     }
 
     public function validate($param) {
